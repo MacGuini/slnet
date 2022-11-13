@@ -1,0 +1,64 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+{% if request.user.is_staff %}
+
+<div class="container">
+    <form method="POST" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+        <h2>Service Details</h2>
+       <div class="containter-fluid">
+            <div id='name'>
+                <label for="name">Name</label>
+                {{form.name}}
+            </div>
+            <div id='description'>
+                <label for="description">Description</label>
+                {{form.description}}
+            </div>
+            <br>
+            <div class="container" id='image'>
+                {% if image %}
+                    <img class="img-fluid" src="{{image.url}}" alt="">
+                {% endif %}
+                <label for="image">Change Image</label>
+                {{form.image}}
+            </div>
+        </div>
+        <div class="container-fluid">
+            <br>
+            <h2>Service Order</h2>
+            <p>Services are ordered by <strong>priority</strong> first. If two or more services share the same priority, they will then be ordered by the date they were <strong>created</strong>.</p>
+            <br>
+            <div id='featured'>
+                <label for="featured">FEATURED STATUS: Determines if and where the service is posted on the home page</label>
+                {{form.featured}}
+            </div>
+            <div id='priority'>
+                <label for="priority">PRIORITY: Determines the order of services on all pages.</label>
+                {{form.priority}}
+            </div>
+            <div id='categories'>
+                <label for="categories">CATEGORIES: Categorizes services on the service page. You can select more than one. (Hold Ctrl to select multiple on PC)</label>
+                {{form.categories}}
+            </div>
+            <div>
+                <input class="btn bg-green-400" type="submit" value="Save">
+                <a class="btn bg-green-400" href="{% url 'create-category' %}?next=/create-service">Add Category</a>
+            </div>
+        </div>
+        
+
+       
+        
+
+    </form>
+{% else %}
+    <h1>You are not authorized to view this page.</h1>
+</div>
+
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    {% if request.user.is_staff %}
+        <p>Are you sure you want to delete "{{object}}"?</p>
+        <a href="{{ request.GET.next }}">Go Back</a>
+        <input type="submit" value="Confirm">
+    {% else %}
+        <p>Staff only</p>
+    {% endif %}
+    
+</form>
+{% endblock content %}
+

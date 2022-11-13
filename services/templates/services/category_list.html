@@ -1,0 +1,26 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<a class="button bg-green-300 text-green-900" href="{% url 'services' %}">Services</a>
+<div class="container justify-content-center">
+    
+        <table class="table table-responsive table-hover">
+            <tr>
+                <th>Name</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        {% for category in categories %}
+            <tr>
+                <th>{{category.name}}</th>
+                <th><a class="btn btn-info" href="{% url 'update-category' category.id %}?next=/category-list">Edit</a></th>
+                <th><a class="btn btn-danger" href="{% url 'delete-category' category.id %}?next=/category-list">Delete</a></th>
+            </tr>
+        {% endfor %}
+        </table>
+        
+    <a class="button bg-green-300 text-green-900" href="{% url 'create-category' %}?next=/category-list">Create Category</a>
+</div>
+
+
+{% endblock content %}

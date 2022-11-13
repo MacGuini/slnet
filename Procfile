@@ -1,0 +1,1 @@
+web: gunicorn slnet.wsgi --log-file -

@@ -1,0 +1,122 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<style>
+  .container-featured{
+    margin-left: 20px;
+    margin-right: 20px;
+    -moz-box-shadow:    inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow:         inset 0 0 10px #000000;
+  }
+
+
+  @media screen and (max-width: 600px) {
+    .container-featured{
+      margin: 0;
+    }
+  }
+</style>
+<!-- First Parallax Image with Logo Text -->
+<div class="container-featured">
+  <div class="bgimg display-container opacity-min">
+    <div class="display-middle">
+      <h3 class="text-center title title-shadow">Sublime Landscaping LLC</h3>
+    </div>
+  </div>
+</div>
+
+
+<!-- Container (About Section) -->
+<div class="padding-y64 text-green-100 bg-green-900">
+  <h3 class="text-center">ABOUT US</h3>
+  <p class="text-center"><em>Fully Licensed and Insured</em></p>
+  <p class="text-center"><em>Commercial and Residential</em></p>
+  <p class="text-center"><em>NJ-ID# 0450539342</em></p>
+  <p class="mx-3">We are a small, family run business based out of the Ocean and Burlington County areas in New Jersey. Though we service all of the state. We understand that your house's appearance can effect your every day life. So we look at every detail to ensure you get a sublime feeling when you come back to your beautiful home. Let your landscape come back to you with some chill vibes.</p>
+
+</div>
+
+
+<!-- Featured Services -->
+<h1 class="text-center" style="padding-top: 64px">Featured Services</h1>
+
+{% for service in service %}
+
+  {% if service.featured == "featured" %}
+<div class="padding-y64">
+
+
+  <!-- Service -->
+  
+  <!--Checks for image. Loads default if none available-->
+  {% if service.image %}
+    <div class="bgimg-featured display-container opacity-min container-featured" style="background-image: url('{{service.image.url}}');">
+  {% endif %}
+  
+
+    <div class="display-middle">
+      <a class="text-white service-title fw-bold title-shadow text-center" href="{% url "view-service" service.id %}" title="">{{ service.name }}</a>
+
+    </div>
+  </div>
+
+  <!-- Service Description -->
+<div class="bg-green-800 text-green-100 text-center">
+
+  <h2 class="mx-3">{{service.description|truncatechars:300 }}</h2>
+
+</div>
+<div class="text-center">
+    <a class="padding-large button bg-green-200 text-green-900" style="margin-top:12px" href="{% url "view-service" service.id %}?next={% url 'index' %}" title="">View More</a>
+    
+</div>
+</div>
+  {% endif %}
+
+
+{% endfor %}
+
+
+
+<div class="bg-green-700">
+
+
+<h2 class="text-center" style="padding-top:16px">Other Services</h2>
+<hr>
+
+
+<section class="service_card-section">
+
+  <div class="service_card-grid">
+
+  {% for service in service %}
+
+      {% if service.featured == 'other' %}
+        <a class="service_card" href="{% url 'view-service' service.id %}?next={% url 'index' %}">
+          <!--Checks for image. Loads default if none available-->
+          {% if service.image %}
+            <div class="service_card__background" style="background-image: url('{{service.image.url}}')"></div>
+          {% endif %}
+          
+          <div class="service_card__content">
+            <h3 class="service_card__heading">{{service.name}}</h3>
+          </div>
+        </a>
+      {% endif %}
+  {% endfor %}
+
+
+  <div>
+</section>
+<div class="text-center padding-y16">
+  <a class="button bg-green-200 text-green-900" href="{% url "services" %}" title="View More Services">More Services</a>
+</div>
+
+
+</div>
+
+
+
+{% endblock content %}

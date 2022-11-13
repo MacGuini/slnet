@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+
+
+<div class="container">
+    
+    <!--request.GET.next allows for a dynamic url value. You simply add ?next=/"url name here" at the end of the link that is used to get to this page-->
+    
+    <a class="button bg-green-300 text-green-900" href="{{ request.GET.next }}">Go Back</a>
+
+    <h2>{{service.name}}</h2>
+    {% if service.image %}
+        <img class="img-fluid" src="{{service.image.url}}" alt="">
+    {% endif %}
+    <p>{{service.description|linebreaksbr}}</p>
+    <a class="button bg-green-300 text-green-900" href="tel:7326146428"><i class="fa fa-phone">Call Us Now</i></a>
+    {% if request.user.is_staff %}
+    <a class="button bg-green-300 text-green-900" href="{% url 'update-service' service.id %}?next=/services">Edit</a>
+    <a class="button bg-green-300 text-green-900" href="{% url 'delete-service' service.id %}?next=/services">Delete</a>
+{% endif %}
+</div>
+
+
+
+
+
+
+
+{% endblock content %}

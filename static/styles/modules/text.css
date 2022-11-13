@@ -1,0 +1,17 @@
+/*
+Text
+ */
+
+.title-shadow{
+  text-shadow: 2px 2px black;
+}
+.service-title{
+  font-size: 50px;
+}
+
+@media screen and (max-width: 600px) {
+  .service-title{
+    font-size: 36px;
+  }
+
+}

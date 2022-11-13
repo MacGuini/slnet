@@ -1,0 +1,80 @@
+/*
+Color palette: Green
+#005c0f - 900
+#109a34 - 800
+#1fd758 - 700
+#24eb64 - 600
+#29ff70 - 500
+#57ff8e - 400
+#85ffab - 300
+#b3ffc8 - 200
+#e0ffe5 - 100
+*/
+
+/*
+Colors
+*/
+
+.bg-green-900{
+    background-color: #005c0f;
+}
+.bg-green-800{
+    background-color: #109a34;
+}
+.bg-green-700{
+    background-color: #1fd758;
+}
+.bg-green-600{
+    background-color: #24eb64;
+}
+.bg-green-500{
+    background-color: #29ff70;
+}
+.bg-green-400{
+    background-color: #57ff8e;
+}
+.bg-green-300{
+    background-color: #85ffab;
+}
+.bg-green-200{
+    background-color: #b3ffc8;
+}
+.bg-green-100{
+    background-color: #e0ffe5;
+}
+.text-white{
+    color: white;
+}
+.text-black{
+  color: black;
+}
+.text-green-900{
+  color: #005c0f;
+}
+.text-green-800{
+  color: #109a34;
+}
+.text-green-700{
+  color: #1fd758;
+}
+.text-green-600{
+  color: #24eb64;
+}
+.text-green-500{
+  color: #29ff70;
+}
+.text-green-400{
+  color: #57ff8e;
+}
+.text-green-300{
+  color: #85ffab;
+}
+.text-green-200{
+  color: #b3ffc8;
+}
+.text-green-100{
+  color: #e0ffe5;
+}
+:any-link{
+    text-decoration: none;
+}

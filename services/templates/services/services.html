@@ -1,0 +1,123 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<style>
+
+    .filterDiv {
+        display: none; 
+    }
+    
+    .show {
+        display: block;
+    }
+      
+
+
+    
+</style>
+
+<div id="myBtnContainer" class="container pb-3">
+    <button class="btn active bg-green-700" onclick="filterSelection('all')"> Show all</button>
+
+    <!-- Creates category buttons based on how many are in the database-->
+    {% for category in categories.all %}
+    <button class="btn bg-green-400" onclick="filterSelection('{{ category }}')"> {{ category }}</button>
+    {% empty %}
+    <p>No Categories Found</p>
+    {% endfor %}
+    
+    {% if request.user.is_staff %}
+        <a class="button bg-green-300 text-green-900" href="{% url 'category-list' %}?next=/services">Edit Categories</a>
+    {% endif %}
+    
+    
+    
+
+  </div>
+
+<div class="container d-flex flex-wrap justify-content-center ">
+
+<!--Generates services populated in the database-->
+{% for service in services %}
+
+    <!--Container-->
+    
+    <div class="filterDiv card bg-green-300 rounded{{service.categories.all}}" style="max-width: 18rem; margin: 8px;">
+        
+        {% if service.image %}
+            <img class="img-fluid" src="{{service.image.url}}" class="card-img-top" alt="">
+        {% endif %}
+
+        <div class="card-body">
+            <h5 class="card-title">{{service.name}}</h5>
+            <p class="card-text">{{service.description|truncatechars:100}}</p>
+
+            <!-- "?next=/services" dynamically remembers the page so you can return from the next page -->
+            <a class="padding-large btn bg-green-200 text-green-900" style="margin-top:12px" href="{% url "view-service" service.id %}?next=/services" title="">View More</a>
+        </div>     
+    </div>
+    
+
+{% endfor %}
+
+</div>
+
+{% if request.user.is_staff %}
+
+<div class="d-flex justify-content-center text-center">
+    <a class="padding-large button bg-green-600 text-green-900" href="{% url 'create-service' %}">Create Service</a>
+</div>
+
+{% endif %}
+
+
+
+
+    
+    <script>
+        filterSelection("all")
+        function filterSelection(c) {
+        var x, i;
+        x = document.getElementsByClassName("filterDiv");
+        if (c == "all") c = "";
+        for (i = 0; i < x.length; i++) {
+            w3RemoveClass(x[i], "show");
+            if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+        }
+        }
+
+        function w3AddClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+        }
+        }
+
+        function w3RemoveClass(element, name) {
+        var i, arr1, arr2;
+        arr1 = element.className.split(" ");
+        arr2 = name.split(" ");
+        for (i = 0; i < arr2.length; i++) {
+            while (arr1.indexOf(arr2[i]) > -1) {
+            arr1.splice(arr1.indexOf(arr2[i]), 1);     
+            }
+        }
+        element.className = arr1.join(" ");
+        }
+
+        // Add active class to the current button (highlight it)
+        var btnContainer = document.getElementById("myBtnContainer");
+        var btns = btnContainer.getElementsByClassName("btn");
+        for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function(){
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+        }
+    </script>
+
+
+{% endblock content %}

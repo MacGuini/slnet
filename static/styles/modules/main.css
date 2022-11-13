@@ -1,0 +1,94 @@
+/*
+Effects
+*/
+
+.button{
+  border: none;
+  border-radius: 0.5em;
+  display: inline-block;
+  padding: 8px 16px;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.button:hover{
+  opacity: 0.5;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
+}
+
+
+.hover-opacity:hover{
+  opacity: 0.6;
+}
+
+.opacity-min{
+  opacity: 0.75;
+}
+
+
+
+/*
+Parallax
+*/
+.title{
+
+  font-size: 60px;
+  color: white;
+  font-weight: bolder;
+}
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+body, html {
+  height: 100%;
+  width: 100%;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.overflow-off{
+  overflow: hidden;
+}
+
+/* Create a Parallax Effect */
+.bgimg, .bgimg-featured {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+  /* First image (Logo. Full height) */
+  .bgimg {
+    background-image: url("https://slnet-bucket.s3.amazonaws.com/Sublime_Landscaping_Logo.png");
+    min-height: 100%;
+    padding: 500px 15px !important;
+  }
+  
+
+/* Second image (Portfolio) */
+.bgimg-featured {
+    min-height: 700px;
+}
+.space-wide {letter-spacing: 10px;}
+.hover-opacity {cursor: pointer;}
+
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1600px) {
+  .bgimg, .bgimg-featured {
+    background-attachment: scroll;
+    min-height: 500px;
+  }
+  
+}
+
+@media screen and (max-width: 600px) {
+  .title{
+    font-size: 36px;
+  }
+  .container-featured{
+    margin: 0;
+  }
+}

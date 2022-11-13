@@ -1,0 +1,81 @@
+{% extends 'main.html' %}
+
+
+
+
+{% block content %}
+
+
+
+
+<div class="container">
+
+
+<h1 class="text-center">Job Board</h1>
+
+{# Post Container #}
+
+{% if jobs %}
+{% for job in jobs %}
+
+{# Job Post #}
+<div class="container">
+
+
+{# Job Summary #}
+<div class="row">
+
+
+    <div class="col-md-4 row-sm bg-green-700 padding-y16">
+        <h2>{{job.title}}</h2>
+
+        
+        {% if job.rate == "hour" %}
+            <p>${{job.pay}}</p>
+            <p>Rate: Hourly</p>
+        {% elif job.rate == "salary" %}
+            <p>${{job.pay}}</p>
+            <p>Rate: Salary</p>
+        {% elif job.rate == "flat" %}
+            <p>${{job.pay}}</p>
+            <p>Rate: Flat Rate</p>
+        {% elif job.rate == "interview" %}
+            <p>Pay will be discussed at interview</p>            
+        {% endif %}
+        <p>Job Posted: {{job.created}}</p>
+        <a class="text-green-100 bg-green-900 btn" href="{% url 'apply-job' job.id %}">View and Apply</a>
+        {% if request.user.is_staff %}
+        <br>
+        <hr>
+        <a class="btn btn-warning" href="{% url 'update-job' job.id %}">Update Job</a>
+        <a class="btn btn-danger" href="{% url 'delete-job' job.id %}">Delete Job</a>
+        {% endif %}
+
+    </div>
+
+{# Job Description #}
+    <div class="col-md-8 row-sm bg-green-300 padding-y16">
+        <p>{{job.description|truncatechars:1000}}</p>
+    </div>
+
+</div>
+
+<hr>
+
+</div>
+{% endfor %}
+{% else %}
+<h1 class="text-center">No jobs are available at this time</h1>
+{% endif %}
+{% if request.user.is_staff %}
+
+<div class="d-flex justify-content-center text-center">
+    
+    
+    <a class="padding-large button bg-green-600 text-green-900" href="{% url 'post-job' %}">Post New Job</a>
+</div>
+
+{% endif %}
+</div>
+
+{% endblock content %}

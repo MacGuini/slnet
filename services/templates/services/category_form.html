@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<a class="button bg-green-300 text-green-900" href="{{ request.GET.next }}">Go Back</a>
+
+<form action="" method="POST">
+    {% csrf_token %}
+
+    {{form.name}}
+
+    <input type="submit">
+</form>
+    
+
+{% endblock content %}

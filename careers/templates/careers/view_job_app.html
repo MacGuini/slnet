@@ -1,0 +1,90 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<br>
+{% if user.is_staff %}
+<form action="" method="POST">
+    {% csrf_token %}
+<div class='container '>
+    <div class='center'>
+        <p>Job: <strong>{{app.job}}</strong></p>
+    
+        <p>First Name: <strong>{{app.fname}}</strong></p>
+        
+        <p>Last Name: <strong>{{app.lname}}</strong></p>
+        
+        <p>Address 1: <strong>{{app.street1}}</strong></p>
+        
+        <p>Address 2: <strong>{{app.street2}}</strong></p>
+        
+        <p>City: <strong>{{app.city}}</strong></p>
+        
+        <p>State: <strong>{{app.state}}</strong></p>
+        
+        <p>Zipcode: <strong>{{app.zipcode}}</strong></p>
+        
+        {% if app.mobile %}
+            <p>Mobile #: <br> <a class="button bg-green-700 text-black" href="tel:{{app.mobile}}">{{app.mobile}}</a></p>
+            {% else %}
+            <p>No Mobile Number</p>
+        {% endif %}
+        
+        {% if app.home %}
+            <p>Home #: <br> <a class="button bg-green-700 text-black"  href="tel:{{app.home}}">{{app.home}}</a></p>
+            {% else %}
+            <p>No Home Number</p>
+        {% endif %}
+
+        {% if app.work %}
+            <p>Work #: <br> <a class="button bg-green-700 text-black"  href="tel:{{app.work}}">{{app.work}}</a></p>
+            {% else %}
+            <p>No Work Number</p>
+        {% endif %}
+        
+        
+    
+        
+        {% if app.email %}
+        <p>Email #: <br> <a class="button bg-green-700 text-black"  href="email:{{app.email}}">{{app.email}}</a></p>
+        {% else %}
+            <p>No Email</p>
+        {% endif %}
+        
+        <p>Contact Preference: <strong>{{app.preference}}</strong></p>
+    
+        
+        {% if app.resume %}
+            <a class="button bg-green-700 text-black" href="{{app.resume.url}}">Resume</a>
+            {% else %}
+            <p>No Resume Added</p>
+        {% endif %}
+        
+        
+        
+        <p>Available to start: <strong>{{app.start}}</strong></p>
+        
+        
+        <p>Experience: <strong>{{app.experience}} Years</strong></p>
+        
+        <p>Bio: <br> <strong>{{app.bio}}</strong></p>
+
+        <p>Schedule: <br> <strong>{{app.schedule}}</strong></p>
+
+        <p>Skills: <br> <strong>{{app.skills}}</strong></p>
+        
+        
+        <p>Current status: {{app.status}}</p>
+    
+        {% if request.user.is_staff %}
+            <p>{{form.status}}</p>
+            <input type="submit" value="Submit">
+        {% endif %}
+    </div>
+</div>
+    
+   
+</form>
+{% endif %}
+    
+{% endblock content %}

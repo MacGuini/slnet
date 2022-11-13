@@ -1,0 +1,33 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h1>Application List</h1>
+{% if request.user.is_staff %}
+
+<div class="container justify-content-center">
+    <table class="table table-striped table-hover">
+        <tr>
+            <th>Name</th>
+            <th>Job</th>
+            <th>Status</th>
+            <th>View</th>
+            <th>Delete</th>
+        </tr>
+        {% for field in fields %}
+            <tr>
+                <td>{{field.lname}}, {{field.fname}}</td>
+                <td>{{field.job}}</td>
+                <td>{{field.status}}</td>
+                <td><a class="btn btn-info" href="{% url 'view-job-app' field.id %}?next=/job-app-list/">View</a></td>
+                <td><a class="btn btn-danger" href="{% url 'delete-app' field.id %}?next=/job-app-list/">Delete</a></td>
+            </tr>
+        {% endfor %}
+    </table>    
+
+</div>
+{% endif %}
+
+
+
+{% endblock content %}

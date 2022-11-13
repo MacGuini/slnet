@@ -1,0 +1,240 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<!--Main Container-->
+<div class="container">
+
+
+  <div class="">
+      <h2>{{job.title}}</h2>
+      <h6>{{job.description}}</h6>
+
+  </div>
+  <!--Job App Container-->
+  <div class="container">
+
+  <div class="col-12">
+    <form method="POST" action="{% url 'apply-job' job.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+  <div class="container">
+
+        <hr>
+        <div>
+          {% if form.errors %}
+            <h5 class="text-danger bg-green-200 center">You application was not filled out correctly. Please check again.</h5>
+              {% if form.captcha.errors %}
+              <h5 class="text-danger bg-green-200">* ReCaptcha Error</h5>
+              {% endif %}
+          {% endif %}
+        </div>
+
+        <!--Name-->
+        <div>
+          <h5>Required fields = <strong>*</strong></h5>
+        </div>
+        <div class="row g-3">
+
+          <div class="col-sm-6" id='fname'>
+
+            <label {% if form.fname.errors %}class="text-danger"{% endif %} for="fname">First Name <strong>*</strong></label>
+
+            {{form.fname}}
+          </div>
+
+          <div class="col-sm-6" id='lname'>
+
+            <label {% if form.lname.errors %}class="text-danger"{% endif %} for="lname">Last Name <strong>*</strong></label>
+
+            {{form.lname}}
+          </div>
+
+        </div>
+        <!--Name-->
+
+        <!--Date of Birth-->
+        <div class="row">
+
+          <div class="center col-md-3" id='dob'>
+
+          <label {% if form.dob.errors %}class="text-danger"{% endif %} for="dob">Date of Birth <strong>*</strong> {{form.dob.errors.as_text}}</label>
+
+            {{form.dob}}
+          </div>
+
+        </div>
+        <!--Date of Birth-->
+
+          <br>
+        <!--Address-->
+        <div class="row g-3">
+
+          <div class="col-sm-6" id='street1'>
+
+            <label {% if form.street1.errors %}class="text-danger"{% endif %} for="street1">Address Line 1 <strong>*</strong></label>
+
+            {{form.street1}}
+          </div>
+
+          <div class="col-sm-6" id='street2'>
+
+            <label {% if form.street2.errors %}class="text-danger"{% endif %} for="street2">Address Line 2</label>
+
+            {{form.street2}}
+          </div>
+
+        </div>
+        
+
+        <br>
+      
+        <div class="row g-3">
+
+          <div class="col-md-5" id='city'>
+
+            <label {% if form.city.errors %}class="text-danger"{% endif %} for="city">City <strong>*</strong></label>
+
+            {{form.city}}
+          </div>
+
+          <div class="col-md-2" id='state'>
+
+            <label {% if form.state.errors %}class="text-danger"{% endif %} for="state">State <strong>*</strong></label>
+
+            {{form.state}}
+          </div>
+
+          <div class="col-md-3" id='zipcode'>
+
+            <label {% if form.zipode.errors %}class="text-danger"{% endif %} for="zipcode">Zipcode <strong>*</strong></label>
+
+            {{form.zipcode}}
+          </div>
+
+        </div>
+        <!--Address-->
+
+
+          <br>
+
+          <em>Numbers only no hypens</em>
+          <!--Phone Numbers-->
+          <div class="container">
+            {% if form.mobile.errors or form.home.errors or form.work.errors%}
+            <p class="text-danger">Only numbers allowed for phone numbers. No text or special characters</p>
+            {% endif %}
+          </div>
+          
+          <div class="row g-3" id='mobile'>
+
+            <div class="col-sm-3">
+
+              <label{% if form.mobile.errors %}class="text-danger"{% endif %}  for="mobile">Mobile #</label>
+           
+              {{form.mobile}}
+
+            </div>
+
+            <div class="col-sm-3" id='home'>
+
+              <label {% if form.home.errors %}class="text-danger"{% endif %} for="home">Home #</label>
+              
+              {{form.home}}
+            </div>
+
+            <div class="col-sm-3" id='work'>
+
+              <label {% if form.work.errors %}class="text-danger"{% endif %} for="work">Work #</label>
+
+              {{form.work}}
+            </div>
+
+          </div>
+          <!--Phone Numbers-->
+
+          <br>
+
+          <div class="col-sm-6" id='email'>
+
+            <label {% if form.email.errors %}class="text-danger"{% endif %} for="email">Email</label>
+
+            {{form.email}}
+          </div>
+
+          <div class="col-sm-3" id="preference">
+
+            <label {% if form.preference.errors %} class="text-danger" {% endif %} for="preference">Preference <strong>*</strong></label>
+
+            {{form.preference}}
+          </div>
+
+          <div class="col-sm-5" id="resume">
+            <label {% if form.resume.errors %}class="text-danger"{% endif %} for="resume">Upload Resume (2.5MB Limit) {{form.resume.errors.as_text}} </label>
+            {{form.resume}}
+          </div>
+
+          <br>
+
+          <div class="col-12" id='bio'>
+            <label {% if form.bio.errors %}class="text-danger"{% endif %} for="bio">Bio {{form.bio.errors.as_text}} </label>
+            {{form.bio}}
+          </div>
+
+          <div class="col-12" id='skills'>
+            <label {% if form.skills.errors %}class="text-danger"{% endif %} for="skills">Skills {{form.skills.errors.as_text}} </label>
+            {{form.skills}}
+          </div>
+
+          <div class="col-12" id='schedule'>
+            <label {% if form.schedule.errors %}class="text-danger"{% endif %} for="schedule">Schedule {{form.schedule.errors.as_text}} </label>
+            {{form.schedule}}
+          </div>
+
+
+          <br>
+          
+          <div class="row g-3">
+
+            <div class="col-md-3" id='start'>
+
+            <label {% if form.start.errors %}class="text-danger"{% endif %} for="start">When can you start?<strong>*</strong></label>
+
+              {{form.start}}
+            </div>
+
+            <div class="col-md-3" id='experience'>
+              <label {% if form.experience.errors %}class="text-danger"{% endif %} for="experience">Experience (years) {{form.experience.errors.as_text}} </label>
+              {{form.experience}}
+            </div>
+
+          </div>
+
+
+          
+          <hr>
+
+          <div class="text-center">
+            <h2>Post Employment Legal Disclaimer</h2>
+            <br>
+            <p>Sublime Landscaping LLC is an equal opportunity employer that is committed to diversity and inclusion in the workplace. We prohibit discrimination and harassment of any kind based on race, color, sex, religion, sexual orientation, national origin, disability, genetic information, pregnancy, or any other protected characteristic as outlined by federal, state, or local laws. This policy applies to all employment practices within our organization, including hiring, recruiting, promotion, termination, layoff, recall, leave of absence, compensation, benefits, training, and apprenticeship. Sublime Landscaping LLC makes hiring decisions based solely on qualifications, merit, and business needs at the time.</p>
+            <br>
+            <p>By clicking "Submit Application" and passing the recapcha test, you agree that all of the above information is true to the best of your knowledge. False information may result in an applicant's denial or termination if employment is obtained under false pretenses.</p>
+          </div>
+          <hr>
+          <div class="col-md-3" id='captcha'>
+
+            <label {% if form.captcha.errors %}class="text-danger"{% endif %} for="captcha">Are you human?</label>
+            {{form.captcha}}
+            <br>
+            <input class="btn btn-success" type="submit" value="Submit Application">
+          </div>
+        
+          
+    </form>
+  </div>
+  <!--Job App Container-->
+
+</div>
+<!--Main Container-->
+{% endblock content %}

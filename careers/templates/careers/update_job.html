@@ -1,0 +1,33 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+    <div class="container">
+        <form action="" method="POST">
+            {% csrf_token %}
+            <div class="row">
+                <div>
+                    {{form.title}}
+                </div>
+
+                <div>
+                    {{form.description}}
+                </div>
+
+                <div>
+                    {{form.pay}}
+                </div>
+                <div>
+                    {{form.rate}}
+                </div>
+
+            </div>
+            <input type="submit">
+        </form>
+
+    </div>
+
+    
+    
+
+{% endblock content %}
