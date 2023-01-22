@@ -49,7 +49,8 @@ class Service(models.Model):
     class Meta:
         ordering = ['priority', '-created']
 
-    
+
+
 
 class Portfolio(models.Model):
     name = models.CharField(max_length=100, null=False, blank=False)
