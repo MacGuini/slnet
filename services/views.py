@@ -1,9 +1,8 @@
-import os, sys
-
 from django.shortcuts import render, redirect
-from .models import Service, Category
+from .models import Service, Category, Portfolio, Comparison
 from .forms import ServiceForm, CategoryForm
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 # Create your views here.
@@ -61,6 +60,7 @@ def deleteService(request, pk):
 
 def viewService(request, pk):
     service = Service.objects.get(id=pk)
+    
     context = {'service':service}
     return render (request, 'services/service_view.html', context)
 
@@ -108,4 +108,38 @@ def categoryList (request):
 
     context = {"categories":categories}
     return render (request, 'services/category_list.html', context)
+
+def viewPortfolio(request, pk):
+    service = Service.objects.get(id=pk)
+    portfolio = service.portfolio_set.all()
+
+
+# Beginning of paginator logic
+    page = request.GET.get('page')
+    results = 8
+    paginator =Paginator(portfolio, results)
+
+    try:
+        portfolio = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1
+        portfolio = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+    leftIndex = (int(page) - 4)
+
+    if leftIndex < 1:
+        leftIndex = 1
+
+    rightIndex = (int(page) + 5)
+
+    if rightIndex > paginator.num_pages:
+        rightIndex = paginator.num_pages + 1
+# End of Paginator logic
+
+
+    custom_range = range(leftIndex, rightIndex)
+
+    context = {"service":service, "portfolio":portfolio, 'paginator':paginator, 'custom_range':custom_range}
+    return render (request, 'services/service_portfolio.html', context)
 

@@ -4,7 +4,6 @@ import uuid
 from django.db.models.deletion import CASCADE
 
 
-# Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=100, null=False, blank=False)
 
@@ -13,6 +12,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ['name']
 
 
 class Service(models.Model):
@@ -34,7 +36,9 @@ class Service(models.Model):
     description = models.TextField(null=False, blank=False)
     featured = models.CharField(max_length=9, null=False, blank=False, choices=SERVICE_TYPE, default='none')
     priority = models.IntegerField(choices=Priority.choices, blank=True, null=True)
+
     categories = models.ManyToManyField(Category, blank=True)
+
  
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
@@ -45,3 +49,37 @@ class Service(models.Model):
     class Meta:
         ordering = ['priority', '-created']
 
+    
+
+class Portfolio(models.Model):
+    name = models.CharField(max_length=100, null=False, blank=False)
+    description = models.TextField(null=True, blank=True)
+    image = models.ImageField(null=False, blank=False)
+
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    
+    created = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['-created']
+
+class Comparison(models.Model):
+    name = models.CharField(max_length=100, null=False, blank=False)
+    description = models.TextField(null=True, blank=True)
+    before = models.ImageField(null=False, blank=False)
+    after = models.ImageField(null=False, blank=False)
+
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+
+    created = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    def __str__(self):
+        return self.name
+    
+
+    class Meta:
+        ordering = ['-created']
+    
