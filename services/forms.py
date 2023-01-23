@@ -1,6 +1,5 @@
-from django.forms import ModelForm
 from django import forms
-from .models import Service, Category
+from .models import Service, Category, Portfolio
 
 class ServiceForm(forms.ModelForm):
     
@@ -39,3 +38,15 @@ class CategoryForm(forms.ModelForm):
             field.widget.attrs.update({'class': 'input'})
             field.widget.attrs.update({'class': 'form-control'})  
 
+class PortfolioForm(forms.ModelForm):
+
+    class Meta:
+        model = Portfolio
+        fields = ("__all__")
+    
+    def __init__(self, *args, **kwargs):
+        super(PortfolioForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'input'})
+            field.widget.attrs.update({'class': 'form-control'})

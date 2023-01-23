@@ -12,5 +12,6 @@ urlpatterns = [
     path('create-category/', views.createCategory, name='create-category'),
     path('update-category/<str:pk>/', views.updateCategory, name='update-category'),
     path('delete-category/<str:pk>/', views.deleteCategory, name='delete-category'),
-    path('view-portfolio/<str:pk>/', views.viewPortfolio, name='view-portfolio')
+    path('view-portfolio/<str:pk>/', views.viewPortfolio, name='view-portfolio'),
+    path('create-portfolio/', views.createPortfolio, name='create-portfolio'),
 ]

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Service, Category, Portfolio, Comparison
-from .forms import ServiceForm, CategoryForm
+from .models import Service, Category
+from .forms import ServiceForm, CategoryForm, PortfolioForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
@@ -143,3 +143,14 @@ def viewPortfolio(request, pk):
     context = {"service":service, "portfolio":portfolio, 'paginator':paginator, 'custom_range':custom_range}
     return render (request, 'services/service_portfolio.html', context)
 
+def createPortfolio(request):
+    form = PortfolioForm()
+
+    if request.method == "POST":
+        form = CategoryForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('services')
+        
+    context = {"form":form}
+    return render (request, 'services/portfolio_form.html', context)
