@@ -53,8 +53,7 @@ class Service(models.Model):
 
 
 class Portfolio(models.Model):
-    name = models.CharField(max_length=100, null=False, blank=False)
-    description = models.TextField(null=True, blank=True)
+
     image = models.ImageField(null=False, blank=False)
 
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
