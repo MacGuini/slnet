@@ -53,10 +53,9 @@ class Service(models.Model):
 
 
 class Portfolio(models.Model):
-
-    image = models.ImageField(null=False, blank=False)
-
+    name = models.CharField(max_length=100, null=False, blank=False, default='unamed')
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    image = models.ImageField(null=False, blank=False)
     
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
