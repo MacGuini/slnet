@@ -31,7 +31,7 @@ class Service(models.Model):
         ('none', 'None'),
         )
 
-    name = models.CharField(max_length=100, null=False, blank=False)
+    name = models.CharField(max_length=100, null=False, blank=False, unique=True)
     image = models.ImageField(null=True, blank=True)
     description = models.TextField(null=False, blank=False)
     featured = models.CharField(max_length=9, null=False, blank=False, choices=SERVICE_TYPE, default='none')

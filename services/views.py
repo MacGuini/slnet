@@ -60,8 +60,8 @@ def deleteService(request, pk):
     context = {'object':service}
     return render (request, 'delete_template.html', context)
 
-def viewService(request, pk):
-    service = Service.objects.get(id=pk)
+def viewService(request, name):
+    service = Service.objects.get(name=name)
     
     context = {'service':service}
     return render (request, 'services/service_view.html', context)
@@ -111,8 +111,8 @@ def categoryList (request):
     context = {"categories":categories}
     return render (request, 'services/category_list.html', context)
 
-def viewPortfolio(request, pk):
-    service = Service.objects.get(id=pk)
+def viewPortfolio(request, name):
+    service = Service.objects.get(name=name)
     portfolio = service.portfolio_set.all()
 
 
