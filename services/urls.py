@@ -14,4 +14,6 @@ urlpatterns = [
     path('delete-category/<str:pk>/', views.deleteCategory, name='delete-category'),
     path('view-portfolio/<str:name>/', views.viewPortfolio, name='view-portfolio'),
     path('create-portfolio/', views.createPortfolio, name='create-portfolio'),
+    path('delete-portfolio/<str:pk>/', views.deletePortfolio, name="delete-portfolio"),
+    path('update-portfolio/<str:pk>/', views.updatePortfolio, name="update-portfolio"),
 ]

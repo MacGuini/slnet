@@ -145,6 +145,7 @@ def viewPortfolio(request, name):
     context = {"service":service, "portfolio":portfolio, 'paginator':paginator, 'custom_range':custom_range}
     return render (request, 'services/service_portfolio.html', context)
 
+@login_required(login_url='login')
 def createPortfolio(request):
     if request.method == "POST":
         portForm = PortfolioForm(request.POST, request.FILES)
@@ -159,4 +160,32 @@ def createPortfolio(request):
 
 
     context = {"portForm":portForm}
+    return render (request, 'services/portfolio_form.html', context)
+
+@login_required(login_url='login')
+def deletePortfolio(request, pk):
+    
+    portfolio = Portfolio.objects.get(id=pk)
+
+    if request.method == "POST":
+
+        portfolio.delete()
+
+        return redirect('portfolio')
+    
+    context = {'object':portfolio}
+    return render (request, 'delete_template.html', context)
+
+@login_required(login_url='login')
+def updatePortfolio(request, pk):
+    portfolio = Portfolio.objects.get(id=pk)
+    form = PortfolioForm(instance=portfolio)
+
+    if request.method == "POST":
+        form = PortfolioForm(request.POST, instance=portfolio)
+        if form.is_valid():
+            form.save()
+            return redirect('services')
+
+    context = {'form':form}
     return render (request, 'services/portfolio_form.html', context)

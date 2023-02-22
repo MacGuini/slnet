@@ -33,13 +33,15 @@
 
         <br>
         <br>
-
+        {% if request.user.is_staff %}
         <div class="row">
             <a class="btn btn-warning py-2 mb-3 shadow" href="{% url 'update-service' service.id %}?next=/services">Edit</a>
         </div>
         <div class="row">
             <a class="btn btn-danger py-2 shadow" href="{% url 'delete-service' service.id %}?next=/services">Delete</a>
         </div>
+    {% endif %}
+        
                 
     </div>
 
@@ -49,9 +51,7 @@
 
     
 
-{% if request.user.is_staff %}
 
-{% endif %}
 
 
 <script>
