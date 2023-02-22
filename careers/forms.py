@@ -1,4 +1,3 @@
-from django.forms import ModelForm
 from django import forms
 from .models import Application, Job
 from captcha.fields import ReCaptchaField

@@ -3,30 +3,59 @@
 {% block content %}
 
 
-
-
 <div class="container">
+<a class="button bg-green-300 text-green-900 ms-4 mt-2 shadow" href="{{ request.GET.next }}">Go Back</a>
+<div class="row">
     
     <!--request.GET.next allows for a dynamic url value. You simply add ?next=/"url name here" at the end of the link that is used to get to this page-->
     
-    <a class="button bg-green-300 text-green-900" href="{{ request.GET.next }}">Go Back</a>
+    <h2 class="text-center">{{service.name}}</h2>
+    <hr style="max-width: 85%;" class="mx-auto">
+    <div class="col-md-6 mx-auto d-flex justify-content-center">
+        
+        {% if service.image %}
+            <img class="img-fluid shadow" style="border-radius:12px; max-height: 32rem;" src="{{service.image.url}}" alt="">
+        {% endif %}
+    </div>
+    <div class="col-md-6 mx-auto">
+    
+            <div class="overflow-scroll shadow bg-green-700" style="max-height: 25rem;">
+                <p>{{service.description|linebreaksbr}}</p>
+            </div>           
+        
 
-    <h2>{{service.name}}</h2>
-    {% if service.image %}
-        <img class="img-fluid" src="{{service.image.url}}" alt="">
+        <div class="row">
+            <a class="btn bg-green-300 text-green-900 py-2 my-3 shadow" href="{% url 'view-portfolio' service.name %}?next=/services"><i class="fa fa-briefcase"> Portfolio</i></a>
+        </div>
+        <div class="row">
+            <a class="btn bg-green-300 text-green-900 py-2 mb-3 shadow" href="tel:7326146428"><i class="fa fa-phone"> CALL NOW!</i></a>
+        </div>
+
+        <br>
+        <br>
+        {% if request.user.is_staff %}
+        <div class="row">
+            <a class="btn btn-warning py-2 mb-3 shadow" href="{% url 'update-service' service.id %}?next=/services">Edit</a>
+        </div>
+        <div class="row">
+            <a class="btn btn-danger py-2 shadow" href="{% url 'delete-service' service.id %}?next=/services">Delete</a>
+        </div>
     {% endif %}
-    <p>{{service.description|linebreaksbr}}</p>
-    <a class="button bg-green-300 text-green-900" href="tel:7326146428"><i class="fa fa-phone">Call Us Now</i></a>
-    {% if request.user.is_staff %}
-    <a class="button bg-green-300 text-green-900" href="{% url 'update-service' service.id %}?next=/services">Edit</a>
-    <a class="button bg-green-300 text-green-900" href="{% url 'delete-service' service.id %}?next=/services">Delete</a>
-{% endif %}
+        
+                
+    </div>
+
 </div>
 
 
 
+    
 
 
+
+
+<script>
+</script>
 
 
 {% endblock content %}

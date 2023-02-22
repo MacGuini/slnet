@@ -1,9 +1,10 @@
-import os, sys
-
 from django.shortcuts import render, redirect
-from .models import Service, Category
-from .forms import ServiceForm, CategoryForm
+from django.http import HttpResponseRedirect
+from .models import Service, Category, Portfolio
+from .forms import ServiceForm, CategoryForm, PortfolioForm
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 # Create your views here.
@@ -59,8 +60,9 @@ def deleteService(request, pk):
     context = {'object':service}
     return render (request, 'delete_template.html', context)
 
-def viewService(request, pk):
-    service = Service.objects.get(id=pk)
+def viewService(request, slug):
+    service = Service.objects.get(slug=slug)
+    
     context = {'service':service}
     return render (request, 'services/service_view.html', context)
 
@@ -109,3 +111,81 @@ def categoryList (request):
     context = {"categories":categories}
     return render (request, 'services/category_list.html', context)
 
+def viewPortfolio(request, name):
+    service = Service.objects.get(name=name)
+    portfolio = service.portfolio_set.all()
+
+
+# Beginning of paginator logic
+    page = request.GET.get('page')
+    results = 8
+    paginator =Paginator(portfolio, results)
+
+    try:
+        portfolio = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1
+        portfolio = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+    leftIndex = (int(page) - 4)
+
+    if leftIndex < 1:
+        leftIndex = 1
+
+    rightIndex = (int(page) + 5)
+
+    if rightIndex > paginator.num_pages:
+        rightIndex = paginator.num_pages + 1
+# End of Paginator logic
+
+
+    custom_range = range(leftIndex, rightIndex)
+
+    context = {"service":service, "portfolio":portfolio, 'paginator':paginator, 'custom_range':custom_range}
+    return render (request, 'services/service_portfolio.html', context)
+
+@login_required(login_url='login')
+def createPortfolio(request):
+    if request.method == "POST":
+        portForm = PortfolioForm(request.POST, request.FILES)
+
+        if portForm.is_valid():
+            portForm.save()
+
+            if request.POST.get('save_and_continue'):
+                return redirect('services')
+    else:
+        portForm = PortfolioForm()
+
+
+    context = {"portForm":portForm}
+    return render (request, 'services/portfolio_form.html', context)
+
+@login_required(login_url='login')
+def deletePortfolio(request, pk):
+    
+    portfolio = Portfolio.objects.get(id=pk)
+
+    if request.method == "POST":
+
+        portfolio.delete()
+
+        return redirect('portfolio')
+    
+    context = {'object':portfolio}
+    return render (request, 'delete_template.html', context)
+
+@login_required(login_url='login')
+def updatePortfolio(request, pk):
+    portfolio = Portfolio.objects.get(id=pk)
+    form = PortfolioForm(instance=portfolio)
+
+    if request.method == "POST":
+        form = PortfolioForm(request.POST, instance=portfolio)
+        if form.is_valid():
+            form.save()
+            return redirect('services')
+
+    context = {'form':form}
+    return render (request, 'services/portfolio_form.html', context)

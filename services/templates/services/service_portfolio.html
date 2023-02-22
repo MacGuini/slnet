@@ -1,0 +1,69 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<a class="button bg-green-300 text-green-900 ms-4 mt-2" href="{{ request.GET.next }}">Go Back</a>
+
+<div class="container">
+    {% for portfolio in portfolio %}
+
+        {% if forloop.first %}
+        <div class="row d-flex justify-content-around">
+        {% endif %}
+
+        <div class="col">
+            <div class="card m-3" style="width: 18rem;">
+                <img src="{{portfolio.image.url}}" alt="">
+            </div>
+            {% if request.user.is_staff %}
+                {% comment %}
+                # Uncomment if there is ever a need for update-portfolio
+                # Removed update because the model is so simple, there's no point in creating an update. Just delete and post a new photo.
+                <div class="row">
+                    <a class="btn btn-warning py-2 mb-3 shadow" href="{% url 'update-portfolio' portfolio.id %}?next=/services">Edit</a>
+                </div> {% endcomment %}
+                <div class="row">
+                    <a class="btn btn-danger py-2 shadow" href="{% url 'delete-portfolio' portfolio.id %}?next=/services">Delete</a>
+                </div>
+            {% endif %}
+        </div>
+
+        {% if forloop.counter|divisibleby:3 %}
+        
+            </div>
+            <div class="row d-flex justify-content-around">
+        {% endif %} 
+
+    {% if forloop.last %}
+        </div>
+    {% endif %}
+
+    {% endfor %}
+</div>
+
+{% if portfolio.has_other_pages %}
+
+<div class="pagination">
+    <ul class="container d-flex justify-content-center" style="list-style: none">
+        {% if portfolio.has_previous %}
+        <li><a href="?page={{portfolio.previous_page_number}}" class="btn bg-green-300 shadow-sm mx-1">Prev</a></li>
+        {% endif %}
+
+        {% for page in custom_range %}
+
+        {% if page == portfolio.number %}
+        <li><a href="?page={{page}}" class="btn bg-green-700 shadow-sm mx-1">{{page}}</a></li>
+        {% else %}
+        <li><a href="?page={{page}}" class="btn bg-green-300 shadow-sm mx-1">{{page}}</a></li>
+        {% endif %}
+
+            
+        {% endfor %}
+
+        {% if portfolio.has_next %}
+        <li><a href="?page={{portfolio.next_page_number}}" class="btn bg-green-300 shadow-sm mx-1">Next</a></li>
+        {% endif %}
+    </ul>
+
+</div>
+{% endif %}
+{% endblock content %}

@@ -16,31 +16,31 @@ Colors
 */
 
 .bg-green-900{
-    background-color: #005c0f;
+    background-color: #005c0f !important;
 }
 .bg-green-800{
-    background-color: #109a34;
+    background-color: #109a34 !important;
 }
 .bg-green-700{
-    background-color: #1fd758;
+    background-color: #1fd758 !important;
 }
 .bg-green-600{
-    background-color: #24eb64;
+    background-color: #24eb64 !important;
 }
 .bg-green-500{
-    background-color: #29ff70;
+    background-color: #29ff70 !important;
 }
 .bg-green-400{
-    background-color: #57ff8e;
+    background-color: #57ff8e !important;
 }
 .bg-green-300{
-    background-color: #85ffab;
+    background-color: #85ffab !important;
 }
 .bg-green-200{
-    background-color: #b3ffc8;
+    background-color: #b3ffc8 !important;
 }
 .bg-green-100{
-    background-color: #e0ffe5;
+    background-color: #e0ffe5 !important;
 }
 .text-white{
     color: white;
@@ -78,3 +78,4 @@ Colors
 :any-link{
     text-decoration: none;
 }
+
