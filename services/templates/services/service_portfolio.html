@@ -1,10 +1,16 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<a class="button bg-green-300 text-green-900 ms-4 mt-2" href="{{ request.GET.next }}">Go Back</a>
+
 
 <div class="container">
+    <a class="button bg-green-300 text-green-900 ms-4 mt-2" href="{{ request.GET.next }}">Go Back</a>
+    {% if request.user.is_staff%}
+    <a class="button bg-green-300 text-green-900 ms-4 mt-2" href="{% url 'create-portfolio' %}?next=/services">Add to Portfolio</a>
+    {% endif %}
     {% for portfolio in portfolio %}
+
+
 
         {% if forloop.first %}
         <div class="row d-flex justify-content-around">
