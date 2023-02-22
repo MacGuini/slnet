@@ -60,8 +60,8 @@ def deleteService(request, pk):
     context = {'object':service}
     return render (request, 'delete_template.html', context)
 
-def viewService(request, name):
-    service = Service.objects.get(name=name)
+def viewService(request, slug):
+    service = Service.objects.get(slug=slug)
     
     context = {'service':service}
     return render (request, 'services/service_view.html', context)

@@ -7,3 +7,7 @@ admin.site.register(Service)
 admin.site.register(Category)
 admin.site.register(Portfolio)
 admin.site.register(Comparison)
+
+class ServiceAdmin(admin.ModelAdmin):
+    prepopulated_fields = {"slug": ("name",)}
+

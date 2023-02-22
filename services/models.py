@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.text import slugify
+from django.urls import reverse
 import uuid
 
 from django.db.models.deletion import CASCADE
@@ -32,6 +34,7 @@ class Service(models.Model):
         )
 
     name = models.CharField(max_length=100, null=False, blank=False, unique=True)
+    slug = models.SlugField(max_length=300, blank=True)
     image = models.ImageField(null=True, blank=True)
     description = models.TextField(null=False, blank=False)
     featured = models.CharField(max_length=9, null=False, blank=False, choices=SERVICE_TYPE, default='none')
@@ -45,6 +48,11 @@ class Service(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def save(self, *args,**kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super(Service, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['priority', '-created']
