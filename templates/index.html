@@ -57,7 +57,7 @@
   
 
     <div class="display-middle">
-      <a class="text-white service-title fw-bold title-shadow text-center" href="{% url "view-service" service.id %}" title="">{{ service.name }}</a>
+      <a class="text-white service-title fw-bold title-shadow text-center" href="{% url "view-service" service.slug %}" title="">{{ service.name }}</a>
 
     </div>
   </div>
@@ -69,7 +69,7 @@
 
 </div>
 <div class="text-center">
-    <a class="padding-large button bg-green-200 text-green-900" style="margin-top:12px" href="{% url "view-service" service.id %}?next={% url 'index' %}" title="">View More</a>
+    <a class="padding-large button bg-green-200 text-green-900" style="margin-top:12px" href="{% url "view-service" service.slug %}?next={% url 'index' %}" title="">View More</a>
     
 </div>
 </div>
