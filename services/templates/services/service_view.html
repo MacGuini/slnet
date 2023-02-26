@@ -22,18 +22,21 @@
             <div class="overflow-scroll shadow bg-green-700" style="max-height: 25rem;">
                 <p>{{service.description|linebreaksbr}}</p>
             </div>           
+        <br>
+        {% if portfolio %}
+            <div class="row">
+                <a class="btn bg-green-300 text-green-900 py-2 my-3 shadow" href="{% url 'view-portfolio' service.name %}?next=/services"><i class="fa fa-briefcase"> Portfolio</i></a>
+            </div>
+        {% endif %}
         
-
-        <div class="row">
-            <a class="btn bg-green-300 text-green-900 py-2 my-3 shadow" href="{% url 'view-portfolio' service.name %}?next=/services"><i class="fa fa-briefcase"> Portfolio</i></a>
-        </div>
         <div class="row">
             <a class="btn bg-green-300 text-green-900 py-2 mb-3 shadow" href="tel:7326146428"><i class="fa fa-phone"> CALL NOW!</i></a>
         </div>
 
-        <br>
-        <br>
+        
         {% if request.user.is_staff %}
+        <br>
+        <br>
         <div class="row">
             <a class="btn btn-warning py-2 mb-3 shadow" href="{% url 'update-service' service.id %}?next=/services">Edit</a>
         </div>

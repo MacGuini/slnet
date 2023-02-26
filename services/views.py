@@ -62,8 +62,9 @@ def deleteService(request, pk):
 
 def viewService(request, slug):
     service = Service.objects.get(slug=slug)
+    portfolio = service.portfolio_set.all()
     
-    context = {'service':service}
+    context = {'service':service, 'portfolio':portfolio}
     return render (request, 'services/service_view.html', context)
 
 @login_required(login_url='login')
@@ -171,7 +172,7 @@ def deletePortfolio(request, pk):
 
         portfolio.delete()
 
-        return redirect('portfolio')
+        return redirect('services')
     
     context = {'object':portfolio}
     return render (request, 'delete_template.html', context)
