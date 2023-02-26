@@ -160,7 +160,7 @@ def createPortfolio(request):
         portForm = PortfolioForm()
 
 
-    context = {"portForm":portForm}
+    context = {"portForm":portForm, 'serviceName':serviceName}
     return render (request, 'services/portfolio_form.html', context)
 
 @login_required(login_url='login')
