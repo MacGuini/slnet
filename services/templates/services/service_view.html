@@ -38,7 +38,7 @@
         <br>
         <br>
         <div class="row">
-            <a class="btn bg-green-300 text-green-900 py-2 mb-3 shadow" id="{{ service.name }}" name="{{ service.name }}" href="{% url 'create-portfolio' %}">Add to Portfolio</a>
+            <a class="btn bg-green-300 text-green-900 py-2 mb-3 shadow" href="{% url 'create-portfolio' %}">Add to Portfolio</a>
         </div>
         <div class="row">
             <a class="btn btn-warning py-2 mb-3 shadow" href="{% url 'update-service' service.id %}?next=/services">Edit</a>
