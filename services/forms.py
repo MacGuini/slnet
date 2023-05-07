@@ -11,7 +11,7 @@ class ServiceForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Name the service'}),
             'description': forms.Textarea(attrs={'placeholder': 'Describe what the service provides'}),
-            # image doesn't render Clear checkbox on templates
+            # image doesn't render "Clear" checkbox on templates
             'image': forms.FileInput(),
         }
 
