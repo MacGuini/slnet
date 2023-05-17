@@ -94,7 +94,7 @@
   {% for service in service %}
 
       {% if service.featured == 'other' %}
-        <a class="service_card" href="{% url 'view-service' service.id %}?next={% url 'index' %}">
+        <a class="service_card" href="{% url 'view-service' service.slug %}?next={% url 'index' %}">
           <!--Checks for image. Loads default if none available-->
           {% if service.image %}
             <div class="service_card__background" style="background-image: url('{{service.image.url}}')"></div>
