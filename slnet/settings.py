@@ -103,11 +103,11 @@ WSGI_APPLICATION = 'slnet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '<PGDATABASE>',
-        'USER': '<PGUSER>',
-        'PASSWORD': '<PGPASSWORD>',
-        'HOST': '<PGHOST>',
-        'PORT': '<PGPORT>',
+        'NAME': str(os.getenv('PGDATABASE')),
+        'USER': os.getenv('PGUSER'),
+        'PASSWORD': os.getenv('PGPASSWORD'),
+        'HOST': os.getenv('PGHOST'),
+        'PORT': os.getenv('PGPORT'),
     }
 }
 
