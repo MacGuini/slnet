@@ -26,7 +26,7 @@ SECRET_KEY = str(os.environ.get('DJANGO_SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", "slnet.herokuapp.com", "sublimelandscaping.net", "sublimeimprovements.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "slnet.herokuapp.com", "sublimelandscaping.net", "sublimeimprovements.com", "web-production-ca8e.up.railway.app"]
 
 
 # Application definition
