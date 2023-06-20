@@ -5,7 +5,8 @@ from .forms import ServiceForm, CategoryForm, PortfolioForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+from django.conf import settings
 
 # Create your views here.
 def index(request):
@@ -27,13 +28,15 @@ def createService(request):
         form = ServiceForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            send_mail(
-                "Your profile was updated!",
-                "This message is to test noreply email.",
-                "noreply@sublimeimprovements.com",
-                ["bhatz829@yahoo.com"],
-                fail_silently=False,
-		    )
+            email = EmailMessage(
+                'Service was created!',
+                'This message is to test noreply email.',
+                'noreply@sublimeimprovements.com',
+                ['bhatz829@yahoo.com'],
+                auth_user=settings.EMAIL_HOST_USER,
+                auth_password=settings.EMAIL_HOST_PASSWORD,
+            )
+            email.send(fail_silently=False)
             return redirect('services')
 
     context ={'form':form}
