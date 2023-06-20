@@ -5,6 +5,7 @@ from .models import Job, Application
 from django.template import context
 from .forms import ApplicationForm, ReviewAppForm, JobForm
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 
 # Create your views here.
 
@@ -99,6 +100,12 @@ def applyJob(request, jobId):
             application = form.save(commit=False)
             application.job = job
             
+            send_mail(
+                "You're application has been submitted.",
+                "This message is to confirm your application for Sublime Improvements.",
+                "Don't reply <do_not_reply@sublimeimprovements.com>",
+                ['bhatz829@yahoo.com']
+            )
             application.save()
 
             return redirect ('job-board')
