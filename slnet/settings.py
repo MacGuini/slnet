@@ -88,7 +88,15 @@ WSGI_APPLICATION = 'slnet.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 
-if DEBUG == False:
+if DEBUG == True:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
+else:
 
     DATABASES = {
         'default': {
@@ -100,15 +108,7 @@ if DEBUG == False:
             'PORT': os.getenv('PGPORT'),
         }
     }
-else:
 
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
 
 
 # Password validation
