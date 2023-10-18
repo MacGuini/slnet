@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.environ.get('DJANGO_SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DJANGO_DEBUG')
+DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "slnet.herokuapp.com", "sublimelandscaping.net", "sublimeimprovements.com", "web-production-ca8e.up.railway.app"]
+ALLOWED_HOSTS = ["127.0.0.1", "slnet.herokuapp.com", "sublimelandscaping.net", "sublimeimprovements.com"]
 
 
 # Application definition
@@ -86,29 +86,25 @@ WSGI_APPLICATION = 'slnet.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+# DB_PASSWORD = os.getenv('DB_PASSWORD')
+# DB_HOST = os.getenv('DB_HOST')
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'SLnetDB',
+#         'USER': 'macguini',
+#         'PASSWORD': DB_PASSWORD,
+#         'HOST': DB_HOST,
+#         'PORT': '5432',
+#     }
+# }
 
-
-if DEBUG == True:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-
-else:
-
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': str(os.getenv('PGDATABASE')),
-            'USER': os.getenv('PGUSER'),
-            'PASSWORD': os.getenv('PGPASSWORD'),
-            'HOST': os.getenv('PGHOST'),
-            'PORT': os.getenv('PGPORT'),
-        }
-    }
-
+}
 
 
 # Password validation
@@ -161,7 +157,7 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
@@ -171,22 +167,14 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-
 RECAPTCHA_PUBLIC_KEY = str(os.getenv('RECAPTCHA_PUBLIC_KEY'))
 RECAPTCHA_PRIVATE_KEY = str(os.getenv('RECAPTCHA_PRIVATE_KEY'))
 
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-if DEBUG == False:
-    SECURE_SSL_REDIRECT = True
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# AWS_QUERYSTRING_AUTH = False
+# AWS_S3_FILE_OVERWRITE = False
 
-    AWS_QUERYSTRING_AUTH = False
-    AWS_S3_FILE_OVERWRITE = False
-
-    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-    AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-else:
-    SECURE_SSL_REDIRECT = False
+# AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+# AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+# AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
