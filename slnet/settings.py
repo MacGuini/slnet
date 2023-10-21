@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'services.apps.ServicesConfig',
     'careers.apps.CareersConfig',
     'accounts.apps.AccountsConfig',
+    'billing.apps.BillingConfig',
     'captcha',
 
     'storages',
