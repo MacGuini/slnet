@@ -1,0 +1,21 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container center">
+
+    <h2>Create Invoice</h2>
+    <form method="POST">
+      {% csrf_token %}
+      {{ bill_form.as_p }}
+      {{ service_item_form.as_p }}
+      <button type="submit">Create</button>
+    </form>
+
+</div>
+
+{% endblock content %}
+
+
+
