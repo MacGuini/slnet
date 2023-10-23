@@ -4,7 +4,8 @@ from .models import Bill, ServiceItem
 class BillForm(forms.ModelForm):
     class Meta:
         model = Bill
-        fields = ['user', 'notes', 'total_price']
+        fields = ['user', 'notes']
+        exclude = ['total_price']
         
     def __init__(self, *args, **kwargs):
         super(BillForm, self).__init__(*args, **kwargs)

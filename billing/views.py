@@ -1,19 +1,47 @@
 from django.shortcuts import render, redirect
 from .forms import BillForm, ServiceItemForm
+from .models import Bill
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
 def createInvoice(request):
     if request.method == "POST":
-        bill_form = BillForm(request.POST)
-        service_item_form = ServiceItemForm(request.POST)
-        if bill_form.is_valid() and service_item_form.is_valid():
-            bill = bill_form.save()
-            service_item = service_item_form.save(commit=False)
+        form = BillForm(request.POST)
+        if form.is_valid():
+            bill = form.save()
+            return redirect('add-service-bill', bill_id=bill.id)
+    else:
+        form = BillForm()
+
+    return render(request, 'billing/create_invoice.html', {'form':form})
+
+def addService(request, bill_id):
+    bill = get_object_or_404(Bill, id=bill_id)
+    if request.method == "POST":
+        form = ServiceItemForm(request.POST)
+
+        if form.is_valid():
+            service_item = form.save(commit=False)
             service_item.bill = bill
             service_item.save()
-            return redirect('invoice_detail', pk=bill.pk)
+            bill.total_price += service_item.price
+            bill.save()
+
+            if request.POST.get('save_and_add'):
+                return redirect('invoice-details', pk=bill.pk)
+            else:
+                return redirect('invoice-details', bill_id=bill.id)
+            
     else:
-        bill_form = BillForm()
-        service_item_form = ServiceItemForm()
-    return render(request, 'billing/create_invoice.html', {'bill_form': bill_form, 'service_item_form': service_item_form})
+        form = ServiceItemForm()
+
+
+    return render(request, 'billing/add_service_bill.html', {'form':form})
+    
+
+def invoiceDetails(request, bill_id):
+    bill = get_object_or_404(Bill, id=bill_id)
+    services = bill.services.all()
+
+    return render(request, 'billing/invoice_details.html', {'bill': bill, 'services': services})

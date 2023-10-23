@@ -1,0 +1,18 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<div class="container center">
+
+    <form action="POST" enctype="application/x-www-form-urlencoded">
+        
+        {% csrf_token %}
+        {{form.as_p}}
+
+        <input type="submit" value="Save and Continue" name="save_and_continue"/>
+        <input type="submit" value="Save and Add Another" name="save_and_add">
+    </form>
+
+</div>
+
+{% endblock content %}

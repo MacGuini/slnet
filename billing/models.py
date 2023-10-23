@@ -9,7 +9,7 @@ import uuid
 class Bill(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     notes = models.TextField(null=False, blank=False)
-    total_price = models.DecimalField(max_digits=9 ,decimal_places=2)
+    total_price = models.DecimalField(max_digits=9 ,decimal_places=2, default=0.00)
 
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True)
     created = models.DateTimeField(auto_now_add=True)

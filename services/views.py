@@ -147,6 +147,8 @@ def viewPortfolio(request, name):
     context = {"service":service, "portfolio":portfolio, 'paginator':paginator, 'custom_range':custom_range}
     return render (request, 'services/service_portfolio.html', context)
 
+# NOTE: The createPortfolio may need more tweaking. See addService view in billing to implement something similar incase of failing. Include services pk to avoid database conflicts.
+
 @login_required(login_url='login')
 def createPortfolio(request):
     if request.method == "POST":
