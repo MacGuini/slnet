@@ -17,7 +17,7 @@ class BillForm(forms.ModelForm):
 class ServiceItemForm(forms.ModelForm):
     class Meta:
         model = ServiceItem
-        fields = ['service', 'description', 'bill', 'price']
+        fields = ['service', 'description','price']
 
     def __init__(self, *args, **kwargs):
         super(ServiceItemForm, self).__init__(*args, **kwargs)

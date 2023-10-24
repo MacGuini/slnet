@@ -1,6 +1,18 @@
 {% extends "main.html" %}
 
+
 {% block content %}
+
+<p>{{bill.user}}</p>
+<p>{{bill.total_price}}</p>
+
+{% for service in services %}
+
+    <p>{{service.service}}</p>
+    <p>{{service.description}}</p>
+    <p>{{service.price}}</p>
+
+{% endfor %}
 
 <div class="container center">
 
