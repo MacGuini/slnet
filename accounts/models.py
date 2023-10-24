@@ -13,7 +13,7 @@ class Profile(models.Model):
         ('text', 'Text'),
         ('email', 'Email'),
     )
-
+	# NOTE: fname, lname, and email must be added in any form you create to add a new profile. Built in user model breaks otherwise. Try to figure out solution in signals.
 	user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
 	username = models.CharField(max_length=100, null=True, blank=True)
 	fname = models.CharField(max_length=100, null=True, blank=True)
@@ -41,6 +41,6 @@ class Profile(models.Model):
 
 
 	def __str__(self):
-		return str(self.username)
+		return f'{self.fname} {self.lname} - {self.username}'
 
     

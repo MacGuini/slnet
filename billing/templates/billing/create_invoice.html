@@ -8,8 +8,14 @@
     <h2 class='text-center'>Create New Invoice</h2>
     <form method="POST" enctype="application/x-www-form-urlencoded">
       {% csrf_token %}
-      {{ form.user }}
-      {{ form.notes }}
+      <div id="user">
+        <label for="user">Client</label>
+        {{ form.user }}
+      </div>
+      <div id="notes">
+        <label for="note">Notes</label>
+        {{ form.notes }}
+      </div>
       
       <input class="btn bg-green-400" type="submit" value="Create Invoice">
     </form>

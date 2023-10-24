@@ -6,6 +6,10 @@ class BillForm(forms.ModelForm):
         model = Bill
         fields = ['user', 'notes']
         exclude = ['total_price']
+
+        widgets ={
+            'notes': forms.Textarea(attrs={'placeholder': "Add any details for the bill if any."}),
+        }
         
     def __init__(self, *args, **kwargs):
         super(BillForm, self).__init__(*args, **kwargs)

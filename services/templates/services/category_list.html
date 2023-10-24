@@ -12,9 +12,9 @@
             </tr>
         {% for category in categories %}
             <tr>
-                <th>{{category.name}}</th>
-                <th><a class="btn btn-info" href="{% url 'update-category' category.id %}?next=/category-list">Edit</a></th>
-                <th><a class="btn btn-danger" href="{% url 'delete-category' category.id %}?next=/category-list">Delete</a></th>
+                <td>{{category.name}}</th>
+                <td><a class="btn btn-info" href="{% url 'update-category' category.id %}?next=/category-list">Edit</a></td>
+                <td><a class="btn btn-danger" href="{% url 'delete-category' category.id %}?next=/category-list">Delete</a></td>
             </tr>
         {% endfor %}
         </table>
