@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import BillForm, ServiceItemForm
-from .models import Bill
+from .models import Bill, ServiceItem
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
@@ -29,7 +29,7 @@ def addService(request, bill_id):
             bill.save()
 
             if request.POST.get('save_and_add'):
-                return redirect('invoice-details', pk=bill.pk)
+                return redirect('add-service-bill', bill_id=bill.id)
             else:
                 return redirect('invoice-details', bill_id=bill.id)
             
@@ -37,7 +37,7 @@ def addService(request, bill_id):
         form = ServiceItemForm()
 
 
-    return render(request, 'billing/add_service_bill.html', {'form':form})
+    return render(request, 'billing/add_service_bill.html', {'form':form, 'bill_id':bill_id})
     
 
 def invoiceDetails(request, bill_id):
