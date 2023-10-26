@@ -1,0 +1,19 @@
+{% extends "main.html" %}
+
+
+{% block content %}
+
+<div class="container">
+
+    <form method="POST" action="">
+        
+        {% csrf_token %}
+        {{form.as_p}}
+
+        <input class="btn bg-green-400" type="submit" value="Update">
+
+    </form>
+
+</div>
+
+{% endblock content %}

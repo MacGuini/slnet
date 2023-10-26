@@ -40,7 +40,40 @@ def addServiceItem(request, bill_id):
 
     return render(request, 'billing/add_service_item.html', {'form':form, 'bill_id':bill_id, 'bill':bill, 'services':services})
 
+def updateServiceItem(request, service_item_id):
+    service_item = get_object_or_404(ServiceItem, id=service_item_id)
+    bill = service_item.bill
+    form = ServiceItemForm(instance=service_item)
 
+    if request.method == "POST":
+        old_price = service_item.price
+        form = ServiceItemForm(request.POST, instance=service_item)
+        
+        if form.is_valid():
+            service_item = form.save(commit=False)
+            bill.total_price -= old_price
+            bill.total_price += service_item.price
+            bill.save()
+            service_item.save()
+
+            return redirect('add-service-item', bill_id=bill.id)
+
+    return render(request, 'billing/update_service_item.html', {'form':form, 'bill':bill, 'service_item':service_item})
+
+def deleteServiceItem(request, service_item_id):
+    service_item = get_object_or_404(ServiceItem, id=service_item_id)
+    bill = service_item.bill
+
+    if request.method == "POST":
+        old_price = service_item.price
+        bill.total_price -= old_price
+        bill.save()
+        service_item.delete()
+        
+
+        return redirect('add-service-item', bill_id=bill.id)
+    
+    return render (request, 'delete_template.html', {'object':service_item, 'bill':bill})
 
 def invoiceDetails(request, bill_id):
     bill = get_object_or_404(Bill, id=bill_id)

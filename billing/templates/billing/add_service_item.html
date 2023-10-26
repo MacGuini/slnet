@@ -30,8 +30,8 @@
             <td>{{service.service}}</td>
             <td>{{service.description}}</td>
             <td>${{service.price}}</td>
-            <td><a class="btn btn-info" href="">Edit</a></td>
-            <td><a class="btn btn-danger" href="">Delete</a></td>
+            <td><a class="btn btn-info" href="{% url "update-service-item" service.id %}?next={% url "add-service-item" bill.id %}">Edit</a></td>
+            <td><a class="btn btn-danger" href="{% url 'delete-service-item' service.id %}?next={% url 'add-service-item' bill.id %}">Delete</a></td>
         </tr>
         {% endfor %}
         <tr>

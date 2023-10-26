@@ -83,7 +83,6 @@ def deleteJobApp(request, pk):
 
         app.delete()
 
-        
         return redirect('job-app-list')
     context = {'object':app}
     return render (request, 'delete_template.html', context)

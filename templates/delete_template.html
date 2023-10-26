@@ -5,7 +5,7 @@
     {% csrf_token %}
     {% if request.user.is_staff %}
         <p>Are you sure you want to delete "{{object}}"?</p>
-        <a href="{{ request.GET.next }}">Go Back</a>
+        <a class="btn bg-green-300" href="{{ request.GET.next }}">Go Back</a>
         <input type="submit" value="Confirm">
     {% else %}
         <p>Staff only</p>
