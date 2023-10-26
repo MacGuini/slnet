@@ -1,6 +1,6 @@
 import os
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Job, Application
 from django.template import context
 from .forms import ApplicationForm, ReviewAppForm, JobForm
@@ -30,7 +30,7 @@ def postJob(request):
 
 @login_required(login_url='login')
 def deleteJob(request, pk):
-    job = Job.objects.get(id=pk)
+    job = get_object_or_404(Job, id=pk)
     if request.method == 'POST':
         job.delete()
         return redirect('job-board')
@@ -39,7 +39,7 @@ def deleteJob(request, pk):
 
 @login_required(login_url='login')
 def updateJob(request, pk):
-    job = Job.objects.get(id=pk)
+    job = get_object_or_404(Job, id=pk)
     form = JobForm(instance=job)
 
     if request.method == "POST":
@@ -59,7 +59,7 @@ def jobAppList(request):
 
 @login_required(login_url='login')
 def viewJobApp(request, pk):
-    app = Application.objects.get(id=pk)
+    app = get_object_or_404(Application, id=pk)
     form = ReviewAppForm(instance = app)
     
     if request.method == 'POST':
@@ -77,7 +77,7 @@ def viewJobApp(request, pk):
 
 @login_required(login_url='login')
 def deleteJobApp(request, pk):
-    app = Application.objects.get(id=pk)
+    app = get_object_or_404(Application, id=pk)
 
     if request.method == 'POST':
 
@@ -92,7 +92,7 @@ def deleteJobApp(request, pk):
 
 def applyJob(request, jobId):
     form = ApplicationForm()
-    job = Job.objects.get(id=jobId)
+    job = get_object_or_404(Job, id=jobId)
 
     if request.method == 'POST':
         form = ApplicationForm(request.POST, request.FILES)

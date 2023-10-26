@@ -46,7 +46,7 @@
 <div class="container center">
 
     <h3>Add Service to Invoice</h3>
-    <form method="POST" action="{% url 'add-service-bill' bill_id %}" enctype="multipart/form-data">
+    <form method="POST" action="{% url 'add-service-item' bill_id %}">
         
         {% csrf_token %}
         {{form.as_p}}

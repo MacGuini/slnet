@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from .models import Service, Category, Portfolio
 from .forms import ServiceForm, CategoryForm, PortfolioForm
@@ -35,7 +35,7 @@ def createService(request):
 
 @login_required(login_url='login')
 def updateService(request, pk):
-    service = Service.objects.get(id=pk)
+    service = get_object_or_404(Service, id=pk)
     form = ServiceForm(instance=service)
 
     if request.method == "POST":
@@ -50,7 +50,7 @@ def updateService(request, pk):
 
 @login_required(login_url='login')
 def deleteService(request, pk):
-    service = Service.objects.get(id=pk)
+    service = get_object_or_404(Service, id=pk)
 
     if request.method == "POST":
 
@@ -62,7 +62,7 @@ def deleteService(request, pk):
     return render (request, 'delete_template.html', context)
 
 def viewService(request, slug):
-    service = Service.objects.get(slug=slug)
+    service = get_object_or_404(Service, slug=slug)
     portfolio = service.portfolio_set.all()
     
     context = {'service':service, 'portfolio':portfolio}
@@ -83,7 +83,7 @@ def createCategory(request):
 
 @login_required(login_url='login')
 def updateCategory(request, pk):
-    category = Category.objects.get(id=pk)
+    category = get_object_or_404(Category, id=pk)
     form = CategoryForm(instance=category)
 
     if request.method == "POST":
@@ -97,7 +97,7 @@ def updateCategory(request, pk):
 
 @login_required(login_url='login')
 def deleteCategory(request, pk):
-    category = Category.objects.get(id=pk)
+    category = get_object_or_404(Category, id=pk)
     
     if request.method == "POST":
         category.delete()
@@ -114,7 +114,7 @@ def categoryList (request):
     return render (request, 'services/category_list.html', context)
 
 def viewPortfolio(request, name):
-    service = Service.objects.get(name=name)
+    service = get_object_or_404(Service, name=name)
     portfolio = service.portfolio_set.all()
 
 
