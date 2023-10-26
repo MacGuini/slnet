@@ -19,7 +19,7 @@
 </div>
 
 <div class="container">
-    <table class="table table-responsive table-hover">
+    <table class="table table-responsive">
         <tr>
             <th>Service</th>
             <th>Description</th>
@@ -30,6 +30,8 @@
             <td>{{service.service}}</td>
             <td>{{service.description}}</td>
             <td>${{service.price}}</td>
+            <td><a class="btn btn-info" href="">Edit</a></td>
+            <td><a class="btn btn-danger" href="">Delete</a></td>
         </tr>
         {% endfor %}
         <tr>
@@ -44,12 +46,13 @@
 <div class="container center">
 
     <h3>Add Service to Invoice</h3>
-    <form method="POST" action="" enctype="multipart/form-data">
+    <form method="POST" action="{% url 'add-service-bill' bill_id %}" enctype="multipart/form-data">
         
         {% csrf_token %}
         {{form.as_p}}
 
-        <input class="btn bg-green-400" type="submit" value="Add to Invoice">
+        <input class="btn bg-green-400" type="submit" value="Add Another" name="save_and_add">
+        <a class="btn bg-green-500 btn-lg" href="{% url "invoice-details" bill_id %}">Finish invoice</a>
     </form>
 
 </div>

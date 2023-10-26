@@ -16,12 +16,6 @@ def createInvoice(request):
 
     return render(request, 'billing/create_invoice.html', {'form':form})
 
-def buildInvoice(request, bill_id):
-    bill = get_object_or_404(Bill, id=bill_id)
-    services = bill.services.all()
-
-    return render(request, 'billing/build_invoice.html', {'bill':bill, 'services':services})
-
 def addService(request, bill_id):
     bill = get_object_or_404(Bill, id=bill_id)
     services = bill.services.all()
@@ -36,7 +30,9 @@ def addService(request, bill_id):
             bill.total_price += service_item.price
             bill.save()
 
-            return redirect('build-invoice', bill_id=bill.id)   
+            if 'save_and_add' in request.POST:
+                return redirect('add-service-bill', bill_id=bill.id)
+               
     else:
         form = ServiceItemForm()
 
