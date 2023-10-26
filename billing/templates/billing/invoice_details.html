@@ -1,6 +1,78 @@
 {% extends "main.html" %}
 
 {% block content %}
-<h1 class="text-center">Invoice Details</h1>
+
+<div class="container">
+    <h3 class="text-center">Invoice</h3>
+    <hr class="px-3">
+
+    <div class="container row">
+
+        <div class="container col">
+            <div id="name">
+                <label for="name">Client</label>
+                <p>{{bill.user.fname}} {{bill.user.lname}}</p>
+            </div>
+            <div id="address">
+                <label for="address">Address</label>
+                <p>{{bill.user.street1}}
+                {% if bill.user.street2 %}
+                    {{bill.user.street2}}
+                {% endif %}
+                {{bill.user.city}} {{bill.user.state}} {{bill.user.zipcode}}</p>
+            </div>
+            <div id="phone">
+                <label for="phone">Phone</label>
+                <a class="text-black" href="tel:{{bill.user.area1}}{{bill.user.central1}}{{bill.userline1}}">({{bill.user.area1}}) {{bill.user.central1}}-{{bill.user.line1}}</a>
+                {% if bill.user.area2 %}
+                <a class="text-black" href="tel:{{bill.user.area2}}{{bill.user.central2}}{{bill.userline2}}">({{bill.user.area2}}) {{bill.user.central2}}-{{bill.user.line2}}</a>
+                {% endif %}
+                
+            </div>
+            {% if bill.user.email %}
+                <div id="email">
+                    <label for="email">Email</label>
+                    <a class="text-black" href="mailto:{{bill.user.email}}">{{bill.user.email}}</a>
+                </div>
+            {% endif %} 
+        </div>
+
+        <div class="container col text-end">
+            <img src="https://slnet-bucket.s3.amazonaws.com/Sublime_Landscaping_Logo.png" alt="" width="100" height="100" class="">
+            <h4>Sublime Improvements LLC</h4>
+            <a href="tel:7326146428" class="text-black">
+                <i class="fa fa-phone fa-fw"></i> Phone: 732-614-6428
+              </a>
+              <br>
+              <a href="mailto:sublimelandscapingllc20@gmail.com" class="text-black"><i class="fa fa-envelope fa-fw"></i>Email: sublimelandscapingllc20@gmail.com
+              </a>
+        </div>
+
+    </div>
+
+
+    <hr class="px-3">
+    <div class="container">
+        <table class="table table-responsive">
+            <tr>
+                <th>Service</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+            {% for service in services %}
+            <tr>    
+                <td>{{service.service}}</td>
+                <td>{{service.description}}</td>
+                <td>${{service.price}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td><b>Total:</b></td>
+                <td> </td>
+                <td><b>${{bill.total_price}}</b></td>
+            </tr>
+        </table>
+    </div>
+</div>
 
 {% endblock content %}
