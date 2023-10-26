@@ -5,5 +5,6 @@ urlpatterns = [
     path('billing/create-invoice/', views.createInvoice, name='create-invoice'),
     path('billing/add-service-bill/<uuid:bill_id>/', views.addService, name='add-service-bill'),
     path('billing/invoice-details/<uuid:bill_id>/', views.invoiceDetails, name='invoice-details'),
+    path('billing/build-invoice/<uuid:bill_id>/', views.buildInvoice, name='build-invoice'),
 
 ]

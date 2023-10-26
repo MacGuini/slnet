@@ -8,7 +8,7 @@ import uuid
 
 class Bill(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    notes = models.TextField(null=False, blank=False)
+    notes = models.TextField(null=True, blank=True)
     total_price = models.DecimalField(max_digits=9 ,decimal_places=2, default=0.00)
 
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True)
@@ -21,7 +21,7 @@ class ServiceItem(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     description = models.TextField(null=False, blank=False)
     bill = models.ForeignKey(Bill, related_name='services', on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=9, decimal_places=2)
+    price = models.DecimalField(max_digits=9, decimal_places=2, null=False, blank=False)
 
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True)
     created = models.DateTimeField(auto_now_add=True)

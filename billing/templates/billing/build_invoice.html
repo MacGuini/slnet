@@ -1,0 +1,49 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+
+<div class="container">
+    <h3>Build Invoice</h3>
+    <div class="container">
+        <div id="name">
+            <label for="name">Client Name</label>
+            <p>{{bill.user.fname}} {{bill.user.lname}}</p>
+        </div>
+        <div id="address">
+            <label for="address">Address</label>
+            <p>{{bill.user.street1}}
+            {% if bill.user.street2 %}
+                {{bill.user.street2}}
+            {% endif %}
+            {{bill.user.city}} {{bill.user.state}} {{bill.user.zipcode}}</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <table class="table table-responsive">
+            <tr>
+                <th>Service</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+            {% for service in services %}
+            <tr>    
+                <td>{{service.service}}</td>
+                <td>{{service.description}}</td>
+                <td>${{service.price}}</td>
+                <td><a class="btn btn-info" href="">Edit</a></td>
+                <td><a class="btn btn-danger" href="">Delete</a></td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td><b>Total:</b></td>
+                <td> </td>
+                <td><b>${{bill.total_price}}</b></td>
+            </tr>
+        </table>
+    </div>
+    <a class="btn bg-green-500 bt-lg" href="{% url "add-service-bill" bill.id %}?next/build-invoice">Add Service to Bill</a>
+</div>
+
+{% endblock content %}
