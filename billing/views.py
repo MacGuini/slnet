@@ -75,6 +75,13 @@ def deleteServiceItem(request, service_item_id):
     
     return render (request, 'delete_template.html', {'object':service_item, 'bill':bill})
 
+def billsList(request):
+    bills = Bill.objects.all()
+
+    return render(request, "billing/bills_list.html", {'bills':bills})
+
+    
+
 def invoiceDetails(request, bill_id):
     bill = get_object_or_404(Bill, id=bill_id)
     services = bill.services.all()

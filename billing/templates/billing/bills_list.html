@@ -1,0 +1,31 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+    <div class="container">
+        <h3>Bill List</h3>
+
+        
+
+        <table class="table table-responsive">
+            <th>Name</th>
+            <th>Street</th>
+            <th>City</th>
+            <th>Zipcode</th>
+            <th>Total</th>
+            {% for bill in bills %}
+                <tr>
+                    <td>{{bill.user.lname}}, {{bill.user.fname}}</td>
+                    <td>{{bill.user.street1}} {% if bill.user.street2 %}{{bill.user.street2}}{% endif %}</td>
+                    <td>{{bill.user.city}}</td>
+                    <td>{{bill.user.zipcode}}</td>
+                    <td>{{bill.total_price}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        
+        
+
+    </div>
+
+{% endblock content %}
