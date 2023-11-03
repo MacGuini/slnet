@@ -26,7 +26,7 @@
                         <td>{{bill.user.street1}} {% if bill.user.street2 %}{{bill.user.street2}}{% endif %}</td>
                         <td>{{bill.user.city}}</td>
                         <td>{{bill.user.zipcode}}</td>
-                        <td>{{bill.total_price}}</td>
+                        <td>${{bill.total_price}}</td>
                         {% if bill.isPaid %}
                             <td>Paid</td>
                             {% else %}

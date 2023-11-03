@@ -91,3 +91,17 @@ def invoiceDetails(request, bill_id):
     services = bill.services.all()
 
     return render(request, 'billing/invoice_details.html', {'bill': bill, 'services': services})
+
+def updateInvoice(request, bill_id):
+    bill = get_object_or_404(Bill, id=bill_id)
+    services = bill.services.all()
+    form = BillForm(instance=bill)
+
+    if request.method == "POST":
+        form = BillForm(request.POST, instance=bill)
+        if form.is_valid():
+
+            form.save()
+            return redirect('bills-list')
+
+    return render(request, 'billing/update_invoice.html', {'bill':bill, 'services':services, 'form':form})

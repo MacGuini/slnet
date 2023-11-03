@@ -8,4 +8,5 @@ urlpatterns = [
     path('billing/update-service-item/<uuid:service_item_id>/', views.updateServiceItem, name="update-service-item"),
     path('billing/delete-service-item/<uuid:service_item_id>/', views.deleteServiceItem, name="delete-service-item"),
     path('billing/bills-list/', views.billsList, name='bills-list'),
+    path('billing/update-invoice/<uuid:bill_id>/', views.updateInvoice, name='update-invoice'),
 ]

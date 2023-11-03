@@ -1,8 +1,12 @@
 {% extends "main.html" %}
 
-
 {% block content %}
-
+<style>
+    input[type="checkbox"] {
+        width: auto !important;
+    }
+    
+</style>
 <div class="container">
     <div id="name">
         <label for="name">Client Name</label>
@@ -44,20 +48,25 @@
     </div>
     
 </div>
+    <div class="container">
 
-<hr>
-<div class="container center">
+        <form method="POST">
+            {% csrf_token %}
+            <div id="user">
+                <label for="user">Client</label>
+                {{ form.user }}
+            </div>
+            <div id="notes">
+                <label for="note">Notes</label>
+                {{ form.notes }}
+            </div>
+            <div id="isPaid">
+                <label for="isPaid">Paid</label>
+                {{form.isPaid}}
+            </div>
+            <input type="submit" class="btn bg-green-500 btn-lg" value="Update Bill">
+        </form>
 
-    <h3>Add Service to Invoice</h3>
-    <form method="POST" action="{% url 'add-service-item' bill_id %}">
-        
-        {% csrf_token %}
-        {{form.as_p}}
-
-        <input class="btn bg-green-400" type="submit" value="Add to Invoice" name="save_and_add">
-        <a class="btn bg-green-500 btn-lg" href="{% url "invoice-details" bill_id %}">Finish invoice</a>
-    </form>
-
-</div>
+    </div>
 
 {% endblock content %}

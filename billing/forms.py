@@ -2,9 +2,10 @@ from django import forms
 from .models import Bill, ServiceItem
 
 class BillForm(forms.ModelForm):
+    isPaid = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': ''}))
     class Meta:
         model = Bill
-        fields = ['user', 'notes']
+        fields = ['user', 'notes', 'isPaid']
         exclude = ['total_price']
 
         widgets ={
@@ -16,7 +17,6 @@ class BillForm(forms.ModelForm):
 
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'input'})
-            field.widget.attrs.update({'class': 'form-control'})
 
 class ServiceItemForm(forms.ModelForm):
     class Meta:
