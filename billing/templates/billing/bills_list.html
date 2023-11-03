@@ -1,29 +1,44 @@
 {% extends "main.html" %}
 
 {% block content %}
-
+<style>
+    a{
+        color: black;
+    }
+</style>
     <div class="container">
         <h3>Bill List</h3>
 
-        
+        <div class="table-responsive">
+            <table class="table">
+                <th><a href="?order_by=user__lname&sort_type={{ sort_type }}">Name</a></th>
+                <th>Street</th>
+                <th><a href="?order_by=user__city&sort_type={{ sort_type }}">City</a></th>
+                <th><a href="?order_by=user__zipcode&sort_type={{ sort_type }}">Zipcode</a></th>
+                <th>Total</th>
+                <th><a href="?order_by=isPaid&sort_type={{ sort_type }}">Paid</a></th>
+                <th><a href="?order_by=created&sort_type={{ sort_type }}">Date</a></th>
+    
+                {% for bill in bills %}
+                    <tr>
+                        
+                        <td><a href="{% url "invoice-details" bill.id %}?next={% url "bills-list" %}">{{bill.user.lname}}, {{bill.user.fname}}</a></td>
+                        <td>{{bill.user.street1}} {% if bill.user.street2 %}{{bill.user.street2}}{% endif %}</td>
+                        <td>{{bill.user.city}}</td>
+                        <td>{{bill.user.zipcode}}</td>
+                        <td>{{bill.total_price}}</td>
+                        {% if bill.isPaid %}
+                            <td>Paid</td>
+                            {% else %}
+                            <td>Unpaid</td>
+                        {% endif %}
+                        <td>{{bill.created}}</td>
+                        
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
 
-        <table class="table table-responsive">
-            <th>Name</th>
-            <th>Street</th>
-            <th>City</th>
-            <th>Zipcode</th>
-            <th>Total</th>
-            {% for bill in bills %}
-                <tr>
-                    <td>{{bill.user.lname}}, {{bill.user.fname}}</td>
-                    <td>{{bill.user.street1}} {% if bill.user.street2 %}{{bill.user.street2}}{% endif %}</td>
-                    <td>{{bill.user.city}}</td>
-                    <td>{{bill.user.zipcode}}</td>
-                    <td>{{bill.total_price}}</td>
-                </tr>
-            {% endfor %}
-        </table>
-        
         
 
     </div>

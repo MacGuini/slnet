@@ -76,9 +76,13 @@ def deleteServiceItem(request, service_item_id):
     return render (request, 'delete_template.html', {'object':service_item, 'bill':bill})
 
 def billsList(request):
-    bills = Bill.objects.all()
+    order_by = request.GET.get('order_by', 'created')
+    sort_type = request.GET.get('sort_type', 'ascending')
+    order_by = '-%s' % order_by if sort_type == 'descending' else order_by
+    bills = Bill.objects.all().order_by(order_by)
+    sort_type = "descending" if sort_type == "ascending" else "ascending"
 
-    return render(request, "billing/bills_list.html", {'bills':bills})
+    return render(request, "billing/bills_list.html", {'bills':bills, 'sort_type':sort_type})
 
     
 

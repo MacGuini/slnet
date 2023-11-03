@@ -3,8 +3,8 @@
 {% block content %}
 <a class="button bg-green-300 text-green-900" href="{% url 'services' %}">Services</a>
 <div class="container justify-content-center">
-    
-        <table class="table table-responsive table-hover">
+    <div class="table-responsive">
+        <table class="table table-hover">
             <tr>
                 <th>Name</th>
                 <th>Edit</th>
@@ -18,6 +18,8 @@
             </tr>
         {% endfor %}
         </table>
+    </div>
+        
         
     <a class="button bg-green-300 text-green-900" href="{% url 'create-category' %}?next=/category-list">Create Category</a>
 </div>

@@ -4,12 +4,11 @@ from accounts.models import Profile
 from django.db.models.deletion import CASCADE
 import uuid
 
-# Create your models here.
-
 class Bill(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     notes = models.TextField(null=True, blank=True)
     total_price = models.DecimalField(max_digits=9 ,decimal_places=2, default=0.00)
+    isPaid = models.BooleanField(default=False)
 
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True)
     created = models.DateTimeField(auto_now_add=True)

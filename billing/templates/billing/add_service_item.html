@@ -19,27 +19,30 @@
 </div>
 
 <div class="container">
-    <table class="table table-responsive">
-        <tr>
-            <th>Service</th>
-            <th>Description</th>
-            <th>Price</th>
-        </tr>
-        {% for service in services %}
-        <tr>    
-            <td>{{service.service}}</td>
-            <td>{{service.description}}</td>
-            <td>${{service.price}}</td>
-            <td><a class="btn btn-info" href="{% url "update-service-item" service.id %}?next={% url "add-service-item" bill.id %}">Edit</a></td>
-            <td><a class="btn btn-danger" href="{% url 'delete-service-item' service.id %}?next={% url 'add-service-item' bill.id %}">Delete</a></td>
-        </tr>
-        {% endfor %}
-        <tr>
-            <td><b>Total:</b></td>
-            <td> </td>
-            <td><b>${{bill.total_price}}</b></td>
-        </tr>
-    </table>
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>Service</th>
+                <th>Description</th>
+                <th>Price</th>
+            </tr>
+            {% for service in services %}
+            <tr>    
+                <td>{{service.service}}</td>
+                <td>{{service.description}}</td>
+                <td>${{service.price}}</td>
+                <td><a class="btn btn-info" href="{% url "update-service-item" service.id %}?next={% url "add-service-item" bill.id %}">Edit</a></td>
+                <td><a class="btn btn-danger" href="{% url 'delete-service-item' service.id %}?next={% url 'add-service-item' bill.id %}">Delete</a></td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td><b>Total:</b></td>
+                <td> </td>
+                <td><b>${{bill.total_price}}</b></td>
+            </tr>
+        </table>
+    </div>
+    
 </div>
 
 <hr>

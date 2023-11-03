@@ -3,6 +3,7 @@
 {% block content %}
 
 <div class="container">
+    <a class="button bg-green-300 text-green-900 ms-4 mt-2 shadow" href="{{ request.GET.next }}">Go Back</a>
     <h3 class="text-center">Invoice</h3>
     <hr class="px-3">
 
@@ -53,25 +54,28 @@
 
     <hr class="px-3">
     <div class="container">
-        <table class="table table-responsive">
-            <tr>
-                <th>Service</th>
-                <th>Description</th>
-                <th>Price</th>
-            </tr>
-            {% for service in services %}
-            <tr>    
-                <td>{{service.service}}</td>
-                <td>{{service.description}}</td>
-                <td>${{service.price}}</td>
-            </tr>
-            {% endfor %}
-            <tr>
-                <td><b>Total:</b></td>
-                <td> </td>
-                <td><b>${{bill.total_price}}</b></td>
-            </tr>
-        </table>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>Service</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                </tr>
+                {% for service in services %}
+                <tr>    
+                    <td>{{service.service}}</td>
+                    <td>{{service.description}}</td>
+                    <td>${{service.price}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td><b>Total:</b></td>
+                    <td> </td>
+                    <td><b>${{bill.total_price}}</b></td>
+                </tr>
+            </table>
+        </div>
+        
     </div>
 </div>
 
