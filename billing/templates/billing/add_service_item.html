@@ -2,62 +2,27 @@
 
 
 {% block content %}
-
 <div class="container">
-    <div id="name">
-        <label for="name">Client Name</label>
-        <p>{{bill.user.fname}} {{bill.user.lname}}</p>
-    </div>
-    <div id="address">
-        <label for="address">Address</label>
-        <p>{{bill.user.street1}}
-        {% if bill.user.street2 %}
-            {{bill.user.street2}}
-        {% endif %}
-        {{bill.user.city}} {{bill.user.state}} {{bill.user.zipcode}}</p>
-    </div>
-</div>
-
-<div class="container">
-    <div class="table-responsive">
-        <table class="table">
-            <tr>
-                <th>Service</th>
-                <th>Description</th>
-                <th>Price</th>
-            </tr>
-            {% for service in services %}
-            <tr>    
-                <td>{{service.service}}</td>
-                <td>{{service.description}}</td>
-                <td>${{service.price}}</td>
-                <td><a class="btn btn-info" href="{% url "update-service-item" service.id %}?next={% url "add-service-item" bill.id %}">Edit</a></td>
-                <td><a class="btn btn-danger" href="{% url 'delete-service-item' service.id %}?next={% url 'add-service-item' bill.id %}">Delete</a></td>
-            </tr>
-            {% endfor %}
-            <tr>
-                <td><b>Total:</b></td>
-                <td> </td>
-                <td><b>${{bill.total_price}}</b></td>
-            </tr>
-        </table>
-    </div>
-    
-</div>
-
-<hr>
-<div class="container center">
-
-    <h3>Add Service to Invoice</h3>
+    <br>
+    <h3 class="text-center">Add Service to Invoice</h3>
     <form method="POST" action="{% url 'add-service-item' bill_id %}">
         
         {% csrf_token %}
         {{form.as_p}}
 
-        <input class="btn bg-green-400" type="submit" value="Add to Invoice" name="save_and_add">
-        <a class="btn bg-green-500 btn-lg" href="{% url "invoice-details" bill_id %}">Finish invoice</a>
+        <div class="d-flex justify-content-center">
+            <input class="btn bg-green-400 btn-lg" type="submit" value="Add to Invoice" name="save_and_add">
+        </div>
+
     </form>
 
+</div>
+
+<hr>
+
+{% include "billing/itemized_table.html" with id=bill.id %}
+<div class="container text-center">
+    <a class="btn bg-green-500 btn-lg" href="{% url "invoice-details" bill_id %}">Finish invoice</a>
 </div>
 
 {% endblock content %}

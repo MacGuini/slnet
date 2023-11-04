@@ -1,5 +1,3 @@
-{% extends "main.html" %}
-
 {% block content %}
 
 <div class="container">
@@ -43,28 +41,5 @@
     </div>
     
 </div>
-    <div class="container">
-
-        <form method="POST">
-            {% csrf_token %}
-            <div>
-                <div id="user" class="w-100">
-                    <label for="user">Client</label>
-                    {{ form.user }}
-                </div>
-                <div id="notes" class="w-100">
-                    <label for="note">Notes</label>
-                    {{ form.notes }}
-                </div>
-            </div>
-            
-            <div id="isPaid">
-                <label for="isPaid">Paid</label>
-                {{form.isPaid}}
-            </div>
-            <input type="submit" class="btn bg-green-500 btn-lg" value="Update Bill">
-        </form>
-
-    </div>
 
 {% endblock content %}

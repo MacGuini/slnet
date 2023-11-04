@@ -105,3 +105,9 @@ def updateInvoice(request, bill_id):
             return redirect('bills-list')
 
     return render(request, 'billing/update_invoice.html', {'bill':bill, 'services':services, 'form':form})
+
+def itemizedTable(request, bill_id):
+    bill = get_object_or_404(Bill, id=bill_id)
+    services = bill.services.all()
+
+    return render(request, 'billing/itemized_table.html', {'bill':bill, 'services':services})
