@@ -17,7 +17,7 @@ class Bill(models.Model):
         return f'{self.user.fname} {self.user.lname} - {self.total_price}'
 
 class ServiceItem(models.Model):
-    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    service = models.ForeignKey(Service, on_delete=models.SET_NULL, null=True)
     description = models.TextField(null=False, blank=False)
     bill = models.ForeignKey(Bill, related_name='services', on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=9, decimal_places=2, null=False, blank=False)
@@ -26,4 +26,7 @@ class ServiceItem(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.service.name}' 
+        if self.service is None:
+            return 'Service Removed'
+        else:
+            return f'{self.service.name}'
