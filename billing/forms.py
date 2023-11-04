@@ -2,14 +2,17 @@ from django import forms
 from .models import Bill, ServiceItem
 
 class BillForm(forms.ModelForm):
-    isPaid = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': ''}))
+    
+    #isPaid = forms.BooleanField(widget=forms.CheckboxInput(attrs={'class': ''}))
     class Meta:
         model = Bill
         fields = ['user', 'notes', 'isPaid']
         exclude = ['total_price']
 
         widgets ={
-            'notes': forms.Textarea(attrs={'placeholder': "Add any details for the bill if any."}),
+            'user': forms.Select(attrs={"class": "form-control"}),
+            'notes': forms.Textarea(attrs={'placeholder': "Add any details for the bill if any.", "class": "form-control"}),
+
         }
         
     def __init__(self, *args, **kwargs):
@@ -17,6 +20,8 @@ class BillForm(forms.ModelForm):
 
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'input'})
+            if name != 'isPaid':
+                field.widget.attrs.update({'class': 'form-control'})
 
 class ServiceItemForm(forms.ModelForm):
     class Meta:

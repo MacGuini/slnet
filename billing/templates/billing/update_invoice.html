@@ -52,14 +52,17 @@
 
         <form method="POST">
             {% csrf_token %}
-            <div id="user">
-                <label for="user">Client</label>
-                {{ form.user }}
+            <div>
+                <div id="user" class="w-100">
+                    <label for="user">Client</label>
+                    {{ form.user }}
+                </div>
+                <div id="notes" class="w-100">
+                    <label for="note">Notes</label>
+                    {{ form.notes }}
+                </div>s
             </div>
-            <div id="notes">
-                <label for="note">Notes</label>
-                {{ form.notes }}
-            </div>
+            
             <div id="isPaid">
                 <label for="isPaid">Paid</label>
                 {{form.isPaid}}

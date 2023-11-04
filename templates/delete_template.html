@@ -1,16 +1,23 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<form action="" method="POST">
-    {% csrf_token %}
-    {% if request.user.is_staff %}
-        <p>Are you sure you want to delete "{{object}}"?</p>
-        <a class="btn bg-green-300" href="{{ request.GET.next }}">Go Back</a>
-        <input type="submit" value="Confirm">
-    {% else %}
-        <p>Staff only</p>
-    {% endif %}
+<div class="container">
+    <a class="btn bg-green-300" href="{{ request.GET.next }}">Go Back</a>
+    <div class="d-flex justify-content-center">
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% if request.user.is_staff %}
+                <p class="text-center">Are you sure you want to delete "{{object}}"?</p>
+                
+                <input type="submit" class="btn btn-danger" value="Confirm">
+            {% else %}
+                <p>Staff only</p>
+            {% endif %}
+            
+        </form>
+    </div>
     
-</form>
+</div>
+
 {% endblock content %}
 
