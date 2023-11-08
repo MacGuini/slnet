@@ -1,45 +1,112 @@
+<!DOCTYPE html>
+
+{% load static %}
+
 {% block content %}
+<html>
+    <head>
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
 
-<div class="container">
-    <div id="name">
-        <label for="name">Client Name</label>
-        <p>{{bill.user.fname}} {{bill.user.lname}}</p>
+        {# Bootstrap #}
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+        {# Module control for CSS #}
+        <link rel="stylesheet" href="{% static 'styles/modulecontrol.css'%}" />
+
+        {# Font #}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js" integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=" crossorigin="anonymous"></script>
+
+    <!--Jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    </head>
+
+<div class="container-fluid">
+    <h3 class="text-center">Invoice</h3>
+    <hr class="px-3">
+
+    <div class="container-fluid row">
+
+        <div class="container-fluid col">
+            <div id="name">
+                <label for="name">Client</label>
+                <p>{{bill.user.fname}} {{bill.user.lname}}</p>
+            </div>
+            <div id="address">
+                <label for="address">Address</label>
+                <p>{{bill.user.street1}}
+                {% if bill.user.street2 %}
+                    {{bill.user.street2}}
+                {% endif %}
+                {{bill.user.city}} {{bill.user.state}} {{bill.user.zipcode}}</p>
+            </div>
+            <div id="phone">
+                <label for="phone">Phone</label>
+                <a class="text-black" href="tel:{{bill.user.area1}}{{bill.user.central1}}{{bill.userline1}}">({{bill.user.area1}}) {{bill.user.central1}}-{{bill.user.line1}}</a>
+                {% if bill.user.area2 %}
+                <a class="text-black" href="tel:{{bill.user.area2}}{{bill.user.central2}}{{bill.userline2}}">({{bill.user.area2}}) {{bill.user.central2}}-{{bill.user.line2}}</a>
+                {% endif %}
+                
+            </div>
+            {% if bill.user.email %}
+                <div id="email">
+                    <label for="email">Email</label>
+                    <a class="text-black" href="mailto:{{bill.user.email}}">{{bill.user.email}}</a>
+                </div>
+            {% endif %} 
+        </div>
+
+        <div class="container-fluid col text-end">
+            <img src="https://slnet-bucket.s3.amazonaws.com/Sublime_Landscaping_Logo.png" alt="" width="100" height="100" class="">
+            <h4>Sublime Improvements LLC</h4>
+            <a href="tel:7326146428" class="text-black">
+                <i class="fa fa-phone fa-fw"></i> Phone: 732-614-6428
+              </a>
+              <br>
+              <a href="mailto:sublimelandscapingllc20@gmail.com" class="text-black"><i class="fa fa-envelope fa-fw"></i>Email: sublimelandscapingllc20@gmail.com
+              </a>
+        </div>
+
     </div>
-    <div id="address">
-        <label for="address">Address</label>
-        <p>{{bill.user.street1}}
-        {% if bill.user.street2 %}
-            {{bill.user.street2}}
-        {% endif %}
-        {{bill.user.city}} {{bill.user.state}} {{bill.user.zipcode}}</p>
+
+    {% if bill.notes %}
+        <hr>
+        <div class="container">
+            <p>{{bill.notes}}</p>
+        </div>
+    {% endif %}
+
+    <hr class="px-3">
+    <div class="container-fluid">
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>Service</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                </tr>
+                {% for service in services %}
+                <tr>    
+                    <td>{{service.service}}</td>
+                    <td>{{service.description}}</td>
+                    <td>${{service.price}}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td><b>Total:</b></td>
+                    <td> </td>
+                    <td><b>${{bill.total_price}}</b></td>
+                </tr>
+            </table>
+        </div>
+        
     </div>
 </div>
-
-<div class="container">
-    <div class="table-responsive">
-        <table class="table">
-            <tr>
-                <th>Service</th>
-                <th>Description</th>
-                <th>Price</th>
-            </tr>
-            {% for service in services %}
-            <tr>    
-                <td>{{service.service}}</td>
-                <td>{{service.description}}</td>
-                <td>${{service.price}}</td>
-                <td><a class="btn btn-info" href="{% url "update-service-item" service.id %}?next={% url "add-service-item" bill.id %}">Edit</a></td>
-                <td><a class="btn btn-danger" href="{% url 'delete-service-item' service.id %}?next={% url 'add-service-item' bill.id %}">Delete</a></td>
-            </tr>
-            {% endfor %}
-            <tr>
-                <td><b>Total:</b></td>
-                <td> </td>
-                <td><b>${{bill.total_price}}</b></td>
-            </tr>
-        </table>
-    </div>
-    
-</div>
-
+</html>
 {% endblock content %}

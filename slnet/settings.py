@@ -24,10 +24,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.environ.get('DJANGO_SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# NOTE environmental variable to control production and development environments
+if str(os.environ.get('DEBUG_VALUE')) == "True":
+    DEBUG = True
+else:
+    DEBUG = False
+     
+    # CSRF_TRUSTED_ORIGINS = ["https://www.sublimeimprovements.com", "https://sublimeimprovements.com", "https://web-production-ca8e.up.railway.app"]
 
-ALLOWED_HOSTS = ["127.0.0.1", "slnet.herokuapp.com", "sublimelandscaping.net", "sublimeimprovements.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "sublimelandscaping.net", "sublimeimprovements.com", "www.sublimeimprovements.com", "https://www.sublimeimprovements.com", "https://sublimeimprovements.com"]
 
+   
 
 # Application definition
 
@@ -87,26 +94,27 @@ WSGI_APPLICATION = 'slnet.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-# DB_PASSWORD = os.getenv('DB_PASSWORD')
-# DB_HOST = os.getenv('DB_HOST')
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'SLnetDB',
-#         'USER': 'macguini',
-#         'PASSWORD': DB_PASSWORD,
-#         'HOST': DB_HOST,
-#         'PORT': '5432',
-#     }
-# }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG == True:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
 
+else:
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': str(os.getenv('PGDATABASE')),
+            'USER': os.getenv('PGUSER'),
+            'PASSWORD': os.getenv('PGPASSWORD'),
+            'HOST': os.getenv('PGHOST'),
+            'PORT': os.getenv('PGPORT'),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

@@ -17,6 +17,38 @@ def createInvoice(request):
 
     return render(request, 'billing/create_invoice.html', {'form':form})
 
+def updateInvoice(request, bill_id):
+    bill = get_object_or_404(Bill, id=bill_id)
+    services = bill.services.all()
+    form = BillForm(instance=bill)
+
+    if request.method == "POST":
+        form = BillForm(request.POST, instance=bill)
+        if form.is_valid():
+
+            form.save()
+            return redirect('bills-list')
+
+    return render(request, 'billing/update_invoice.html', {'bill':bill, 'services':services, 'form':form})
+
+def invoiceDetails(request, bill_id):
+    bill = get_object_or_404(Bill, id=bill_id)
+    services = bill.services.all()
+
+    return render(request, 'billing/invoice_details.html', {'bill': bill, 'services': services})
+
+def printInvoice(request, bill_id):
+    bill = get_object_or_404(Bill, id=bill_id)
+    services = bill.services.all()
+
+    return render(request, 'billing/print_invoice.html', {'bill': bill, 'services': services})
+
+def itemizedTable(request, bill_id):
+    bill = get_object_or_404(Bill, id=bill_id)
+    services = bill.services.all()
+
+    return render(request, 'billing/itemized_table.html', {'bill':bill, 'services':services})
+
 def addServiceItem(request, bill_id):
     bill = get_object_or_404(Bill, id=bill_id)
     services = bill.services.all()
@@ -56,7 +88,7 @@ def updateServiceItem(request, service_item_id):
             bill.save()
             service_item.save()
 
-            return redirect('add-service-item', bill_id=bill.id)
+            return redirect('update-invoice', bill_id=bill.id)
 
     return render(request, 'billing/update_service_item.html', {'form':form, 'bill':bill, 'service_item':service_item})
 
@@ -85,29 +117,3 @@ def billsList(request):
     return render(request, "billing/bills_list.html", {'bills':bills, 'sort_type':sort_type})
 
     
-
-def invoiceDetails(request, bill_id):
-    bill = get_object_or_404(Bill, id=bill_id)
-    services = bill.services.all()
-
-    return render(request, 'billing/invoice_details.html', {'bill': bill, 'services': services})
-
-def updateInvoice(request, bill_id):
-    bill = get_object_or_404(Bill, id=bill_id)
-    services = bill.services.all()
-    form = BillForm(instance=bill)
-
-    if request.method == "POST":
-        form = BillForm(request.POST, instance=bill)
-        if form.is_valid():
-
-            form.save()
-            return redirect('bills-list')
-
-    return render(request, 'billing/update_invoice.html', {'bill':bill, 'services':services, 'form':form})
-
-def itemizedTable(request, bill_id):
-    bill = get_object_or_404(Bill, id=bill_id)
-    services = bill.services.all()
-
-    return render(request, 'billing/itemized_table.html', {'bill':bill, 'services':services})

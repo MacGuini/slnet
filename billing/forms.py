@@ -10,9 +10,8 @@ class BillForm(forms.ModelForm):
         exclude = ['total_price']
 
         widgets ={
-            'user': forms.Select(attrs={"class": "form-control"}),
             'notes': forms.Textarea(attrs={'placeholder': "Add any details for the bill if any.", "class": "form-control"}),
-
+            'isPaid': forms.CheckboxInput(attrs={ 'style': 'transform: scale(1.5);'}),
         }
         
     def __init__(self, *args, **kwargs):

@@ -43,7 +43,7 @@
     </div>
     
 </div>
-    <div class="container">
+    <div class="container text-center">
 
         <form method="POST">
             {% csrf_token %}
@@ -57,11 +57,12 @@
                     {{ form.notes }}
                 </div>
             </div>
-            
+            <br>
             <div id="isPaid">
-                <label for="isPaid">Paid</label>
+                <label class="btn" for="isPaid">Paid</label>
                 {{form.isPaid}}
             </div>
+            <br>
             <input type="submit" class="btn bg-green-500 btn-lg" value="Update Bill">
         </form>
 
