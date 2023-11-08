@@ -6,7 +6,7 @@
     <div class="container d-flex justify-content-around">
 
         <a id="backbtn" class="button bg-green-300 text-green-900 ms-4 mt-2 shadow" href="{{ request.GET.next }}">Go Back</a>
-        <a class="button bg-green-300 text-green-900 ms-4 mt-2 shadow" href="{% url "print-invoice" bill.id %}?next={% url "invoice-details" bill.id %}">Print Invoice</a>
+        <a class="button bg-green-300 text-green-900 ms-4 mt-2 shadow" href="{% url "print-invoice" bill.id %}?next={% url "invoice-details" bill.id %}">Print Friendly Invoice</a>
         
     </div>
     <hr class="px-3">

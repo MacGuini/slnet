@@ -2,6 +2,8 @@
 
 
 {% block content %}
+
+{% if request.user.is_staff %}
 <div class="container">
     <br>
     <h3 class="text-center">Add Service to Invoice</h3>
@@ -24,5 +26,12 @@
 <div class="container text-center">
     <a class="btn bg-green-500 btn-lg" href="{% url "invoice-details" bill_id %}">Finish invoice</a>
 </div>
+
+{% else %}
+
+<h1>Restricted Access</h1>
+
+{% endif %}
+
 
 {% endblock content %}

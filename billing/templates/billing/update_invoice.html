@@ -30,8 +30,11 @@
                 <td>{{service.service}}</td>
                 <td>{{service.description}}</td>
                 <td>${{service.price}}</td>
+                {% if request.user.is_staff %}
                 <td><a class="btn btn-info" href="{% url "update-service-item" service.id %}?next={% url "add-service-item" bill.id %}">Edit</a></td>
                 <td><a class="btn btn-danger" href="{% url 'delete-service-item' service.id %}?next={% url 'add-service-item' bill.id %}">Delete</a></td>
+                {% endif %}
+
             </tr>
             {% endfor %}
             <tr>
@@ -43,29 +46,33 @@
     </div>
     
 </div>
-    <div class="container text-center">
 
-        <form method="POST">
-            {% csrf_token %}
-            <div>
-                <div id="user" class="w-100">
-                    <label for="user">Client</label>
-                    {{ form.user }}
-                </div>
-                <div id="notes" class="w-100">
-                    <label for="note">Notes</label>
-                    {{ form.notes }}
-                </div>
-            </div>
-            <br>
-            <div id="isPaid">
-                <label class="btn" for="isPaid">Paid</label>
-                {{form.isPaid}}
-            </div>
-            <br>
-            <input type="submit" class="btn bg-green-500 btn-lg" value="Update Bill">
-        </form>
+{% if request.user.is_staff %}
+<div class="container text-center">
 
-    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div>
+            <div id="user" class="w-100">
+                <label for="user">Client</label>
+                {{ form.user }}
+            </div>
+            <div id="notes" class="w-100">
+                <label for="note">Notes</label>
+                {{ form.notes }}
+            </div>
+        </div>
+        <br>
+        <div id="isPaid">
+            <label class="btn" for="isPaid">Paid</label>
+            {{form.isPaid}}
+        </div>
+        <br>
+        <input type="submit" class="btn bg-green-500 btn-lg" value="Update Bill">
+    </form>
+
+</div>
+{% endif %}
+
 
 {% endblock content %}

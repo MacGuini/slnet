@@ -5,14 +5,19 @@
 
 <div class="container">
 
-    <form method="POST" action="">
+{% if request.user.is_staff %}
+<form method="POST" action="">
         
-        {% csrf_token %}
-        {{form.as_p}}
+    {% csrf_token %}
+    {{form.as_p}}
 
-        <input class="btn bg-green-400" type="submit" value="Update">
+    <input class="btn bg-green-400" type="submit" value="Update">
 
-    </form>
+</form>
+
+{% else %}
+<h1>Restricted Access</h1>
+{% endif %}
 
 </div>
 

@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import BillForm, ServiceItemForm
 from .models import Bill, ServiceItem
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+@login_required(login_url='login')
 def createInvoice(request):
     form = ServiceItemForm()
 
@@ -17,6 +19,7 @@ def createInvoice(request):
 
     return render(request, 'billing/create_invoice.html', {'form':form})
 
+@login_required(login_url='login')
 def updateInvoice(request, bill_id):
     bill = get_object_or_404(Bill, id=bill_id)
     services = bill.services.all()
@@ -49,6 +52,7 @@ def itemizedTable(request, bill_id):
 
     return render(request, 'billing/itemized_table.html', {'bill':bill, 'services':services})
 
+@login_required(login_url='login')
 def addServiceItem(request, bill_id):
     bill = get_object_or_404(Bill, id=bill_id)
     services = bill.services.all()
@@ -72,6 +76,7 @@ def addServiceItem(request, bill_id):
 
     return render(request, 'billing/add_service_item.html', {'form':form, 'bill_id':bill_id, 'bill':bill, 'services':services})
 
+@login_required(login_url='login')
 def updateServiceItem(request, service_item_id):
     service_item = get_object_or_404(ServiceItem, id=service_item_id)
     bill = service_item.bill
@@ -92,6 +97,7 @@ def updateServiceItem(request, service_item_id):
 
     return render(request, 'billing/update_service_item.html', {'form':form, 'bill':bill, 'service_item':service_item})
 
+@login_required(login_url='login')
 def deleteServiceItem(request, service_item_id):
     service_item = get_object_or_404(ServiceItem, id=service_item_id)
     bill = service_item.bill
@@ -107,6 +113,7 @@ def deleteServiceItem(request, service_item_id):
     
     return render (request, 'delete_template.html', {'object':service_item, 'bill':bill})
 
+@login_required(login_url='login')
 def billsList(request):
     order_by = request.GET.get('order_by', 'created')
     sort_type = request.GET.get('sort_type', 'ascending')
