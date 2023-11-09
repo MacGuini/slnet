@@ -3,7 +3,7 @@ from .forms import BillForm, ServiceItemForm
 from .models import Bill, ServiceItem
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+# NOTE: Try to make signals out of the CRUD functions
 
 @login_required(login_url='login')
 def createInvoice(request):

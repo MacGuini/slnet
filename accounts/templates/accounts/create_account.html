@@ -1,0 +1,16 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            {{form.as_p}}
+            <div class="d-flex justify-content-center">
+                <input class="btn bg-green-400 btn-lg" type="submit" value="Create Account">
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}
