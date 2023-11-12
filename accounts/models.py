@@ -17,6 +17,7 @@ class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
 	username = models.CharField(max_length=100, null=True, blank=True)
 	fname = models.CharField(max_length=100, null=True, blank=True)
+	mname = models.CharField(max_length=100, null=True, blank=True)
 	lname = models.CharField(max_length=100, null=True, blank=True)
 	street1 = models.CharField(max_length=200, null=True, blank=True)
 	street2 = models.CharField(max_length=200, null=True, blank=True)
@@ -24,13 +25,9 @@ class Profile(models.Model):
 	state = models.CharField(max_length=2, null=True, blank=True)
 	zipcode = models.CharField(max_length=5, null=True, blank=True)
 
-	area1 = models.CharField(max_length=3, null=True, blank=True)
-	central1 = models.CharField(max_length=3, null=True, blank=True)
-	line1 = models.CharField(max_length=4, null=True, blank=True)
-
-	area2 = models.CharField(max_length=3, null=True, blank=True)
-	central2 = models.CharField(max_length=3, null=True, blank=True)
-	line2 = models.CharField(max_length=4, null=True, blank=True)
+	home = models.CharField(max_length=10, null=True, blank=True)
+	mobile = models.CharField(max_length=10, null=True, blank=True)
+	work = models.CharField(max_length=10, null=True, blank=True)
 
 	email = models.EmailField(max_length=200, null=True, blank=True)
 	preference = models.CharField(max_length=5, choices=CONTACT_TYPE, default='call', null=True, blank=True)

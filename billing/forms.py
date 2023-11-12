@@ -7,7 +7,18 @@ class BillForm(forms.ModelForm):
     class Meta:
         model = Bill
         fields = ['user', 'notes', 'isPaid']
-        exclude = ['total_price']
+        exclude = ['total_price', 
+                   'fname', 
+                   'mname',
+                   'lname', 
+                   'street1', 
+                   'street2', 
+                   'city', 
+                   'state', 
+                   'zipcode', 
+                   'home', 
+                   'work', 
+                   'email']
 
         widgets ={
             'notes': forms.Textarea(attrs={'placeholder': "Add any details for the bill if any.", "class": "form-control"}),

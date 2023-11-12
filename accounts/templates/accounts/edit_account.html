@@ -3,17 +3,66 @@
 
 {% block content %}
 
-<div class="container">
 
-    <form method="POST">
+
+    <form method="POST" class="">
         {% csrf_token %}
-        {{form.as_p}}
 
-        <div class="d-flex justify-content-center">
+        <div class="container text-center">
+
+            <div class="row">
+                <div class="col-md-5">
+                    {{form.fname}}
+                </div>
+                <div class="col-md-2">
+                    {{form.mname}}
+                </div>
+                <div class="col-md-5">
+                    {{form.lname}}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="p-2">
+            {{form.fname}}
+        </div>
+        <div class="p-2">
+            {{form.mname}}
+        </div>
+        <div class="p-2">
+            {{form.lname}}
+        </div>
+        <div class="p-2">
+            {{form.street1}}
+        </div>
+        <div class="p-2">
+            {{form.street2}}
+        </div>
+        <div class="p-2">
+            {{form.city}}
+        </div>
+        <div class="p-2">
+            {{form.zipcode}}
+        </div>
+        <div class="p-2">
+            {{form.home}}
+        </div>
+        <div class="p-2">
+            {{form.mobile}}
+        </div>
+        <div class="p-2">
+            {{form.work}}
+        </div>
+        <div class="p-2">
+            {{form.email}}
+        </div>
+        {{form.as_p}}
+        <div>
             <input class="btn bg-green-400 btn-lg" type="submit" value="Save">
         </div>
     </form>
 
-</div>
+
 
 {% endblock content %}

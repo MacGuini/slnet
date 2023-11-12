@@ -3,25 +3,26 @@
 
 {% block content %}
 
+<div class="container text-center">
 
-<div class="container center">
-
-	<form method="POST">
+	<form method="POST" class='form mx-auto col-lg-4 col-md-6 col-sm-12'>
 		{% csrf_token %}
-		<div>
-			<label>Username: </label>
-			<input type="text" name="username" placeholder="Enter your username">
+		<div class="form-group">
+			<label>Username</label>
+			<input class="form-control" type="text" name="username" placeholder="Enter your username">
 		</div>
-		<div>
-			<label>Password: </label>
-			<input type="password" name="password" placeholder="*********"/>
+		<div class="form-group">
+			<label>Password</label>
+			<input class="form-control" type="password" name="password" placeholder="*********"/>
 		</div>
-		<div>
-			<input type="submit" value="Log In"/>
-			
+		<div class="form-group">
+			<br>
+			<input class="btn bg-green-400" type="submit" value="Log In"/>
 		</div>
 	</form>
-<a href="{% url 'reset_password' %}">Forgot Password?</a>
+	<br>
+	<hr class="w-50 mx-auto">
+	<a class="btn btn-info" href="{% url 'reset_password' %}">Forgot Password?</a>
 </div>
-    
+
 {% endblock content %}

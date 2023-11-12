@@ -46,20 +46,25 @@
                 {% endif %}
                 {{bill.user.city}} {{bill.user.state}} {{bill.user.zipcode}}</p>
             </div>
-            <div id="phone">
-                <label for="phone">Phone</label>
-                <a class="text-black" href="tel:{{bill.user.area1}}{{bill.user.central1}}{{bill.userline1}}">({{bill.user.area1}}) {{bill.user.central1}}-{{bill.user.line1}}</a>
-                {% if bill.user.area2 %}
-                <a class="text-black" href="tel:{{bill.user.area2}}{{bill.user.central2}}{{bill.userline2}}">({{bill.user.area2}}) {{bill.user.central2}}-{{bill.user.line2}}</a>
-                {% endif %}
-                
-            </div>
-            {% if bill.user.email %}
-                <div id="email">
-                    <label for="email">Email</label>
-                    <a class="text-black" href="mailto:{{bill.user.email}}">{{bill.user.email}}</a>
+            {% if bill.home %}
+                <div id="home">
+                    <label for="home">Home #</label>
+                    <a class="text-black" href="tel:{{bill.home}}">{{bill.format_phone_number(bill.home)}}</a>
                 </div>
-            {% endif %} 
+            {% endif %}
+            {% if bill.mobile %}
+                <div id="mobile">
+                    <label for="mobile">Mobile #</label>
+                    <a class="text-black" href="tel:{{bill.mobile}}">{{bill.format_phone_number(bill.mobile)}}</a>
+                </div>
+            {% endif %}
+            {% if bill.work %}
+                <div id="work">
+                    <label for="work">Work #</label>
+                    <a class="text-black" href="tel:{{bill.work}}">{{bill.format_phone_number(bill.work)}}</a>
+                </div>
+            {% endif %}
+
         </div>
 
         <div class="container-fluid col text-end">
@@ -77,8 +82,9 @@
 
     {% if bill.notes %}
         <hr>
+        <label for="notes">Notes</label>
         <div class="container">
-            <p>{{bill.notes}}</p>
+            <p id="notes">{{bill.notes}}</p>
         </div>
     {% endif %}
 
@@ -108,5 +114,7 @@
         
     </div>
 </div>
+
+
 </html>
 {% endblock content %}

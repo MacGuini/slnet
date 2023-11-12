@@ -54,7 +54,7 @@ class ApplicationForm(forms.ModelForm):
     # 100MB 104857600
     # 250MB - 214958080
     # 500MB - 429916160
-    MAX_UPLOAD_SIZE = 10485760
+    MAX_UPLOAD_SIZE = 20971520
 
     # ERROR AND VALIDATION MANAGEMENT #
 
@@ -94,7 +94,6 @@ class ApplicationForm(forms.ModelForm):
         # for loop iterates all fields
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'input'})
-            # Remove below if using the exception script below
             field.widget.attrs.update({'class': 'form-control'})
 
 
@@ -122,5 +121,4 @@ class JobForm(forms.ModelForm):
         # for loop iterates all fields
         for name, field in self.fields.items():
             field.widget.attrs.update({'class': 'input'})
-            # Remove below if using the exception script below
             field.widget.attrs.update({'class': 'form-control'})

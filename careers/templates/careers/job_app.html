@@ -1,4 +1,5 @@
 {% extends 'main.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -12,9 +13,8 @@
 
   </div>
   <!--Job App Container-->
-  <div class="container">
 
-  <div class="col-12">
+
     <form method="POST" action="{% url 'apply-job' job.id %}" enctype="multipart/form-data">
         {% csrf_token %}
 
@@ -170,7 +170,7 @@
           </div>
 
           <div class="col-sm-5" id="resume">
-            <label {% if form.resume.errors %}class="text-danger"{% endif %} for="resume">Upload Resume (2.5MB Limit) {{form.resume.errors.as_text}} </label>
+            <label {% if form.resume.errors %}class="text-danger"{% endif %} for="resume">Upload Resume (20MB Limit) {{form.resume.errors.as_text}} </label>
             {{form.resume}}
           </div>
 

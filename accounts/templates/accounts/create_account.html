@@ -3,11 +3,11 @@
 
 {% block content %}
 
-    <div class="container">
-        <form method="POST">
+    <div class="container text-center">
+        <form method="POST" class="form mx-auto col-lg-4 col-md-6 col-sm-12">
             {% csrf_token %}
             {{form.as_p}}
-            <div class="d-flex justify-content-center">
+            <div>
                 <input class="btn bg-green-400 btn-lg" type="submit" value="Create Account">
             </div>
         </form>
