@@ -41,19 +41,19 @@ class ProfileForm(forms.ModelForm):
 			'street2':'Apt/Suite',
 		}
 		widgets = {
-			'fname': forms.TextInput(attrs={ 'class': 'p-2 form-control', 'placeholder': "First Name"}),
-			'mname': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "Middle Name"}),
-			'lname': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "Last Name"}),
-			'street1': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "Street Address"}),
-			'street2': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "Apt/Suite"}),
-			'city': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "City"}),
-			'state': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "State"}),
-			'zipcode': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "Zipcode"}),
-			'home': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "Home Phone"}),
-			'mobile': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "Mobile Phone"}),
-			'work': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "Work Phone"}),
-			'email': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "E-Mail"}),
-			'preference': forms.RadioSelect(attrs={'class': ''}),
+			'fname': forms.TextInput(attrs={ 'class': 'form-control', 'placeholder': "First Name"}),
+			'mname': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Middle Name"}),
+			'lname': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Last Name"}),
+			'street1': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Street Address"}),
+			'street2': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Apt/Suite"}),
+			'city': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "City"}),
+			'state': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "State"}),
+			'zipcode': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Zipcode"}),
+			'home': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Home Phone"}),
+			'mobile': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Mobile Phone"}),
+			'work': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Work Phone"}),
+			'email': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "E-Mail"}),
+			'preference': forms.RadioSelect(),
 		}
 			
 		# NOTE: This doesn't work for some reason

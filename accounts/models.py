@@ -9,7 +9,7 @@ import uuid
 class Profile(models.Model):
 
 	CONTACT_TYPE = (
-		('', 'No Preference'), 
+		('', 'None'), 
         ('call', 'Call'),
         ('text', 'Text'),
         ('email', 'Email'),

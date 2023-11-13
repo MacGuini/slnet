@@ -3,14 +3,35 @@
 
 {% block content %}
 
-    
+    <style>
+        label{
+            font-size: 1.5rem !important;
+        }
+        .pref-button{
+            border-width: thick;
+            border-radius: 0.5em;
+            display: inline-block;
+            padding: 8px 16px;
+            vertical-align: middle;
+            overflow: hidden;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            white-space: nowrap;
+          }
+          .pref-button:hover{
+            color: #e0ffe5;
+            opacity: 0.5;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
+          }
+    </style>
 
     <form method="POST" class="container text-center">
         {% csrf_token %}
 
         <div class="">
 
-            <div id="yourname" class="row">
+            <div id="yourname" class="row g-2">
                 <label for="yourname">Name</label>
                 <div class="col-md-5">
                     {{form.fname}}
@@ -23,8 +44,8 @@
                 </div>
             </div>
             <hr>
-            <div id='street' class="row">
-                <label for="street">Street Address</label>
+            <div id='address' class="row g-2">
+                <label for="address">Address</label>
                 <div class='col-md-4'>
                     {{form.street1}}
                 </div>
@@ -42,7 +63,7 @@
                 </div>
             </div>
             <hr>
-            <div id="contact" class="row">
+            <div id="contact" class="row g-2">
                 <label for="contact">Contact Info</label>
                 <div id='home' class='col-md-3'>
                     <label for="home">Home</label>
@@ -61,16 +82,25 @@
                     {{form.email}}
                 </div>
             </div>
-            <div class='container p-2'>
-                {% for radio in form.preference %}
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="{{ radio.name }}" id="{{ radio.id_for_label }}" value="{{ radio.choice_value }}">
-                  <label class="form-check-label" for="{{ radio.id_for_label }}">{{ radio.choice_label }}</label>
+            <hr>
+            <div class="g-2 text-center">
+                <p style="font-size:1.5rem;">Contact Preference</p>
+                <div class="btn-group" data-toggle="buttons">
+                    <div class="row d-flex align-items-center">
+                        {% for radio in form.preference %}
+                        <div class="p-2 col-md">
+                            <label class="btn border-green-900 pref-button {% if radio.value == form.preference.value %}active{% endif %}">
+                                {{ radio.tag }} {{ radio.choice_label }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                    
+                    </div>
+
                 </div>
-                {% endfor %}
             </div>
 
-            
+        <hr>
 
         </div class="p-2">
             <input class="btn bg-green-400 btn-lg" type="submit" value="Save">

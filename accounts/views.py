@@ -74,8 +74,9 @@ def editAccount(request):
         form = ProfileForm(request.POST, instance=profile)
         if form.is_valid():
             form.save()
-
             return redirect('index')
+        else:
+            print(form.errors)
 
     
     context = {'form':form}
