@@ -10,7 +10,9 @@ class Profile(models.Model):
 
 	CONTACT_TYPE = (
 		('', 'None'), 
-        ('call', 'Call'),
+        ('home', 'Home'),
+		('mobile', 'Mobile'),
+		('work', 'Work'),
         ('text', 'Text'),
         ('email', 'Email'),
     )
@@ -31,7 +33,7 @@ class Profile(models.Model):
 	work = models.CharField(max_length=10, null=True, blank=True)
 
 	email = models.EmailField(max_length=200, null=True, blank=True)
-	preference = models.CharField(max_length=5, choices=CONTACT_TYPE, default='call', null=True, blank=True)
+	preference = models.CharField(max_length=6, choices=CONTACT_TYPE, default='home', null=True, blank=True)
 
 	created = models.DateTimeField(auto_now_add=True)
 	id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
