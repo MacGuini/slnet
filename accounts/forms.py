@@ -28,7 +28,10 @@ class ProfileForm(forms.ModelForm):
 	class Meta:
 		model = Profile
 		fields = '__all__'
-		exclude = ['user', 'username']
+		exclude = [
+			'user',
+			'username'
+		]
 
 		labels = {
 			'fname':'First Name',
@@ -38,27 +41,31 @@ class ProfileForm(forms.ModelForm):
 			'street2':'Apt/Suite',
 		}
 		widgets = {
-			'fname': forms.TextInput(attrs={ 'placeholder': "First Name"}),
-			'mname': forms.TextInput(attrs={'placeholder': "Middle Name"}),
-			'lname': forms.TextInput(attrs={'placeholder': "Last Name"}),
-			'street1': forms.TextInput(attrs={'placeholder': "Street Address"}),
-			'street2': forms.TextInput(attrs={'placeholder': "Apt/Suite"}),
-			'city': forms.TextInput(attrs={'placeholder': "City"}),
-			'state': forms.TextInput(attrs={'placeholder': "State"}),
-			'zipcode': forms.TextInput(attrs={'placeholder': "Zipcode"}),
-			'home': forms.TextInput(attrs={'placeholder': "Home Phone"}),
-			'mobile': forms.TextInput(attrs={'placeholder': "Mobile Phone"}),
-			'work': forms.TextInput(attrs={'placeholder': "Work Phone"}),
-			'email': forms.TextInput(attrs={'placeholder': "E-Mail"}),
+			'fname': forms.TextInput(attrs={ 'class': 'p-2 form-control', 'placeholder': "First Name"}),
+			'mname': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "Middle Name"}),
+			'lname': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "Last Name"}),
+			'street1': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "Street Address"}),
+			'street2': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "Apt/Suite"}),
+			'city': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "City"}),
+			'state': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "State"}),
+			'zipcode': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "Zipcode"}),
+			'home': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "Home Phone"}),
+			'mobile': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "Mobile Phone"}),
+			'work': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "Work Phone"}),
+			'email': forms.TextInput(attrs={'class': 'p-2 form-control', 'placeholder': "E-Mail"}),
+			'preference': forms.RadioSelect(attrs={'class': ''}),
 		}
 			
+		# NOTE: This doesn't work for some reason
+		# def __init__(self, *args, **kwargs):
+		# 	super(ProfileForm, self).__init__(*args, **kwargs)
 
-		def __init__(self, *args, **kwargs):
-			super(ProfileForm, self).__init__(*args, **kwargs)
+		# 	for name, field in self.fields.items():
+		# 		field.widget.attrs.update({'class': 'input'})
+		# 		field.widget.attrs.update({'class': 'form-control'})
+		# 		field.widget.attrs.update({'class': 'p-2'})
 
-			for name, field in self.fields.items():
-				field.widget.attrs.update({'class': 'input'})
-				field.widget.attrs.update({'class': 'form-control'})
+
 
 
 	

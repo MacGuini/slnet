@@ -6,18 +6,22 @@
         <form action="" method="POST">
             {% csrf_token %}
             <div class="row">
-                <div>
+                <div id="title"> 
+                    <label for="title">Title</label>
                     {{form.title}}
                 </div>
 
-                <div>
+                <div id="description">
+                    <label for="description"></label>
                     {{form.description}}
                 </div>
 
-                <div>
+                <div id="pay">
+                    <label for="pay">Pay</label>
                     {{form.pay}}
                 </div>
-                <div>
+                <div id="rate">
+                    <label for="rate">Rate</label>
                     {{form.rate}}
                 </div>
 
