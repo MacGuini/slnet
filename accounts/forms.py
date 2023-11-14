@@ -1,23 +1,14 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, ValidationError
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 from django.contrib.auth.models import User
 from .models import Profile
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
 
-# class LoginFormWithCaptcha(AuthenticationForm):
-#     captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
+class LoginForm(forms.Form):
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
 
-#     class Meta:
-#         model = User
-#         fields = ["__all__"]
-    
-#     def __init__(self, *args, **kwargs):
-#         super(LoginFormWithCaptcha, self).__init__(*args, **kwargs)
-#         for name, field in self.fields.items():
-#             field.widget.attrs.update({'class': 'input'})
-#             field.widget.attrs.update({'class': 'form-control'})
 
 class CustomUserCreationForm(UserCreationForm): # Inherets all aspects of the imported UserCreationForm
 

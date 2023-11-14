@@ -3,45 +3,46 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .forms import CustomUserCreationForm, ProfileForm
+from .forms import CustomUserCreationForm, ProfileForm, LoginForm
 
 # Create your views here.
 
 def loginUser(request):
-	
-	if request.user.is_authenticated:
-		return redirect('index')
+    
+    if request.user.is_authenticated:
+        return redirect('index')
+    form = LoginForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            # Username forced lower case to prevent repeat users
+            username = request.POST['username'].lower()
+            password = request.POST['password']
 
-	if request.method == 'POST':
-		# Username forced lower case to prevent repeat users
-		username = request.POST['username'].lower()
-		password = request.POST['password']
+            try:
+                user = User.objects.get(username=username)
+            except:
+                print('\n\n***An error has occured logging in***\n\n')
 
-		try:
-			user = User.objects.get(username=username)
-		except:
-			print('\n\n***An error has occured logging in***\n\n')
+            user = authenticate(request, username=username, password=password)
 
-		user = authenticate(request, username=username, password=password)
-
-		# Makes sure the user exists
-		if user is not None:
-		
-			# creates a session for the users in the database
-			login(request, user)
-
-			# returns the user if there is a next route. Otherwise, the user is redirected to the accounts page.
+            # Makes sure the user exists
+            if user is not None:
             
-			return redirect(request.GET['next'] if 'next' in request.GET else 'index')
-			
-		else:
-			print('Invalid User name or password')
+                # creates a session for the users in the database
+                login(request, user)
 
-	return render(request, 'accounts/login.html')
+                # returns the user if there is a next route. Otherwise, the user is redirected to the accounts page.
+                
+                return redirect(request.GET['next'] if 'next' in request.GET else 'index')
+                
+            else:
+                print('Invalid User name or password')
+
+    return render(request, 'accounts/login.html', {'form':form})
 
 def logoutUser(request):
-	logout(request)
-	return redirect('index')
+    logout(request)
+    return redirect('index')
 
 def registerUser(request):
     page = 'register'
