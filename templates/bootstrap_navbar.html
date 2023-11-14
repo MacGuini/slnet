@@ -20,16 +20,23 @@
           <a class="nav-link" href="{% url 'job-board' %}">Careers</a>
         </li>
         {% if request.user.is_authenticated %}
+
           <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'edit-account' %}">Edit Account</a>
+          </li>
+
           {% else %}
+
           <li class="nav-item">
             <a class="nav-link" href="{% url 'login' %}">Log In</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'create-account' %}">Create Account</a>
-          </li>
+          </li>   
+          
         {% endif %}
 
         
@@ -44,8 +51,8 @@
           <ul class="dropdown-menu bg-green-200" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="{% url "create-invoice" %}">Create Invoice</a></li>
             <li><a class="dropdown-item" href="{% url "bills-list" %}">Bills List</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            {% comment %} <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li> {% endcomment %}
           </ul>
         </li>
         {% endif %}

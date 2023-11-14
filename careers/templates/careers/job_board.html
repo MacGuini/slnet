@@ -43,7 +43,7 @@
             <p>Pay will be discussed at interview</p>            
         {% endif %}
         <p>Job Posted: {{job.created}}</p>
-        <a class="text-green-100 bg-green-900 btn" href="{% url 'apply-job' job.id %}">View and Apply</a>
+        <a class="text-green-100 bg-green-900 btn" href="{% url 'apply-job' job.id %}">Apply</a>
         {% if request.user.is_staff %}
         <br>
         <hr>

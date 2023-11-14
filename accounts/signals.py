@@ -32,10 +32,10 @@ def updateProfile(sender, instance, created, **kwargs):
 		user.save()
 
 		send_mail(
-			"Your profile was updated!",
-			"This message is being sent to you to let you know that your profile at sublimeimprovements.com has been successfully updated.",
-			"noreply@sublimeimprovements.com",
-			[profile.email],
+			"Your profile was updated!", # Subject
+			"This message is being sent to you to let you know that your profile at sublimeimprovements.com has been successfully updated.", # Message
+			"noreply@sublimeimprovements.com", # From
+			[profile.email], # To
 			fail_silently=False,
 		)
 
