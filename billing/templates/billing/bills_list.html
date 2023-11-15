@@ -7,7 +7,7 @@
     }
 </style>
 
-{% if request.user.is_staff %}
+
 <div class="container">
     <h3>Bill List</h3>
 
@@ -24,10 +24,9 @@
             {% for bill in bills %}
                 <tr>
                         
-                    <td><a href="{% url "invoice-details" bill.id %}?next={% url "bills-list" %}">{{bill.user.lname}}, {{bill.user.fname}}</a></td>
-                    <td>{{bill.user.street1}} {% if bill.user.street2 %}{{bill.user.street2}}{% endif %}</td>
-                    <td>{{bill.user.city}}</td>
-                    <td>{{bill.user.zipcode}}</td>
+                    <td><a href="{% url "invoice-details" bill.id %}?next={% url "bills-list" %}">{{bill.lname}}, {{bill.fname}}</a></td>
+                    <td>{{bill.street1}} {% if bill.street2 %}{{bill.street2}}{% endif %}</td>
+                    <td>{{bill.city}}</td>
                     <td>${{bill.total_price}}</td>
                     {% if bill.isPaid %}
                         <td>Paid</td>
@@ -43,12 +42,7 @@
 
 </div>
 
-{% else %}
 
-<h1>Restricted Access</h1>
-
-
-{% endif %}
 
 
 {% endblock content %}

@@ -96,12 +96,15 @@ def applyJob(request, jobId):
         if form.is_valid():
             application = form.save(commit=False)
             application.job = job
+            email = str(application.email)
+
+            name = str(application.fname + ' ' + application.lname)
             
             send_mail(
-                "You're application has been submitted.",
-                "This message is to confirm your application for Sublime Improvements.",
+                "Hello " + name + "! You're application has been submitted.",
+                "This message is to confirm your application for Sublime Improvements for " + str(job.title),
                 "Don't reply <do_not_reply@sublimeimprovements.com>",
-                ['bhatz829@yahoo.com']
+                [email]
             )
             application.save()
 

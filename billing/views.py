@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import BillForm, ServiceItemForm
-from .models import Bill, ServiceItem
+from .models import Bill, ServiceItem, Profile
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 
 # NOTE: Try to make signals out of the CRUD functions
 
@@ -118,9 +120,13 @@ def billsList(request):
     order_by = request.GET.get('order_by', 'created')
     sort_type = request.GET.get('sort_type', 'ascending')
     order_by = '-%s' % order_by if sort_type == 'descending' else order_by
-    bills = Bill.objects.all().order_by(order_by)
     sort_type = "descending" if sort_type == "ascending" else "ascending"
 
-    return render(request, "billing/bills_list.html", {'bills':bills, 'sort_type':sort_type})
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user=request.user)
+        if request.user.is_staff:
+            bills = Bill.objects.all().order_by(order_by)
+        else:
+            bills = Bill.objects.filter(user=profile).order_by(order_by)
 
-    
+    return render(request, "billing/bills_list.html", {'bills':bills, 'sort_type':sort_type})

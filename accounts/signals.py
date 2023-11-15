@@ -4,6 +4,8 @@ from django.core.mail import send_mail
 
 from django.contrib.auth.models import User
 from .models import Profile
+from billing.models import Bill
+from django.core.mail import send_mail
 
 
 @receiver(post_save, sender=User)
@@ -18,12 +20,21 @@ def createProfile(sender, instance, created, **kwargs):
 			lname = user.last_name,
 		)
 		profile.save()
+		if profile.email:
+			send_mail(
+			"Hey " + profile.fname + " " + profile.lname + "! Your profile was created!", # Subject
+			"This message is being sent to you to let you know that your profile at sublimeimprovements.com has been successfully created.", # Message
+			"noreply@sublimeimprovements.com", # From
+			[profile.email], # To
+			fail_silently=False,
+		)
 
 		
 @receiver(post_save, sender=Profile)
 def updateProfile(sender, instance, created, **kwargs):
 	profile = instance
 	user = profile.user
+	bills = Bill.objects.filter(user=profile)
 
 	if created == False:
 		user.first_name = profile.fname 
@@ -31,8 +42,23 @@ def updateProfile(sender, instance, created, **kwargs):
 		user.email = profile.email
 		user.save()
 
+		if bills:
+			for bill in bills:
+				bill.fname = profile.fname 
+				bill.lname = profile.lname
+				bill.street1 = profile.street1
+				bill.street2 = profile.street2
+				bill.city = profile.city
+				bill.state = profile.state
+				bill.zipcode = profile.zipcode
+				bill.home = profile.home
+				bill.mobile = profile.mobile
+				bill.work = profile.work
+				bill.email = profile.email
+				bill.save()
+
 		send_mail(
-			"Your profile was updated!", # Subject
+			"Hey " + profile.fname + " " + profile.lname + "! Your profile was updated!", # Subject
 			"This message is being sent to you to let you know that your profile at sublimeimprovements.com has been successfully updated.", # Message
 			"noreply@sublimeimprovements.com", # From
 			[profile.email], # To

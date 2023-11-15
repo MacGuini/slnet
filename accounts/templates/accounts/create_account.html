@@ -7,14 +7,6 @@
         <form method="POST" class="form mx-auto col-lg-4 col-md-6 col-sm-12">
             {% csrf_token %}
             {{form.as_p}}
-            <div class="d-flex justify-content-center text-center" id='captcha'>
-                <div class="form-group">
-                    <p class="px-3" style="font-size: 1.3rem;" {% if form.captcha.errors %}class="text-danger"{% endif %}>Are you human?</p>
-                    {{form.captcha}}
-                </div>
-              </div>
-              <br>
-            <div>
                 <input class="btn bg-green-400 btn-lg" type="submit" value="Create Account">
             </div>
         </form>
