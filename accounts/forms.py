@@ -1,13 +1,12 @@
-from django.forms import ModelForm, ValidationError
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Profile
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV2Checkbox
 
 class LoginForm(forms.Form):
-    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox)
+    captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox(attrs={'class':'mx-auto'}))
 
 
 class CustomUserCreationForm(UserCreationForm): # Inherets all aspects of the imported UserCreationForm

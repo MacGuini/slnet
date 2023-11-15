@@ -11,34 +11,45 @@ def loginUser(request):
     
     if request.user.is_authenticated:
         return redirect('index')
-    form = LoginForm(request.POST)
+
     if request.method == 'POST':
+        form = LoginForm(request.POST)
         if form.is_valid():
             # Username forced lower case to prevent repeat users
             username = request.POST['username'].lower()
             password = request.POST['password']
 
+            # Check if the user exists
             try:
                 user = User.objects.get(username=username)
-            except:
-                print('\n\n***An error has occured logging in***\n\n')
+            except User.DoesNotExist:
+                messages.error(request, 'User does not exist.')
+                return render(request, 'accounts/login.html', {'form':form})
 
+            # Authenticate the user
             user = authenticate(request, username=username, password=password)
 
-            # Makes sure the user exists
+            # Checks if user exists
             if user is not None:
-            
-                # creates a session for the users in the database
-                login(request, user)
-
-                # returns the user if there is a next route. Otherwise, the user is redirected to the accounts page.
-                
-                return redirect(request.GET['next'] if 'next' in request.GET else 'index')
-                
+                # Check if the user is active
+                if user.is_active:
+                    # creates a session for the users in the database
+                    login(request, user)
+                    
+                    # returns the user if there is a next route. Otherwise, the user is redirected to the accounts page.
+                    return redirect(request.GET['next'] if 'next' in request.GET else 'index')
+                else:
+                    messages.errors(request, 'User is inactive')
             else:
-                print('Invalid User name or password')
+                messages.error(request, 'Invalid password')
+            
+            
+    else:
+        form = LoginForm()
 
     return render(request, 'accounts/login.html', {'form':form})
+
+
 
 def logoutUser(request):
     logout(request)
