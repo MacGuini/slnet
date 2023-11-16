@@ -30,7 +30,7 @@ if str(os.environ.get('DEBUG_VALUE')) == "True":
 else:
     DEBUG = False
      
-    # CSRF_TRUSTED_ORIGINS = ["https://www.sublimeimprovements.com", "https://sublimeimprovements.com", "https://web-production-ca8e.up.railway.app"]
+CSRF_TRUSTED_ORIGINS = ["https://www.sublimeimprovements.com", "https://sublimeimprovements.com", "https://web-production-ca8e.up.railway.app"]
 
 ALLOWED_HOSTS = ["127.0.0.1", "sublimelandscaping.net", "sublimeimprovements.com", "www.sublimeimprovements.com", "https://www.sublimeimprovements.com", "https://sublimeimprovements.com"]
 
