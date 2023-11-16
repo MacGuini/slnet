@@ -75,6 +75,35 @@ Colors
 .text-green-100{
   color: #e0ffe5;
 }
+
+.border-green-900{
+  border-color: #005c0f;
+}
+.border-green-800{
+  border-color: #109a34;
+}
+.border-green-700{
+  border-color: #1fd758;
+}
+.border-green-600{
+  border-color: #24eb64;
+}
+.text-green-500{
+  border-color: #29ff70;
+}
+.border-green-400{
+  border-color: #57ff8e;
+}
+.border-green-300{
+  border-color: #85ffab;
+}
+.border-green-200{
+  border-color: #b3ffc8;
+}
+.border-green-100{
+  border-color: #e0ffe5;
+}
+
 :any-link{
     text-decoration: none;
 }

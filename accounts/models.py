@@ -9,14 +9,18 @@ import uuid
 class Profile(models.Model):
 
 	CONTACT_TYPE = (
-        ('call', 'Call'),
+		('', 'None'), 
+        ('home', 'Home'),
+		('mobile', 'Mobile'),
+		('work', 'Work'),
         ('text', 'Text'),
         ('email', 'Email'),
     )
-
+	# NOTE: fname, lname, and email must be added in any form you create to add a new profile. Built in user model breaks otherwise. Try to figure out solution in signals.
 	user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
 	username = models.CharField(max_length=100, null=True, blank=True)
 	fname = models.CharField(max_length=100, null=True, blank=True)
+	mname = models.CharField(max_length=100, null=True, blank=True)
 	lname = models.CharField(max_length=100, null=True, blank=True)
 	street1 = models.CharField(max_length=200, null=True, blank=True)
 	street2 = models.CharField(max_length=200, null=True, blank=True)
@@ -24,16 +28,12 @@ class Profile(models.Model):
 	state = models.CharField(max_length=2, null=True, blank=True)
 	zipcode = models.CharField(max_length=5, null=True, blank=True)
 
-	area1 = models.CharField(max_length=3, null=True, blank=True)
-	central1 = models.CharField(max_length=3, null=True, blank=True)
-	line1 = models.CharField(max_length=4, null=True, blank=True)
-
-	area2 = models.CharField(max_length=3, null=True, blank=True)
-	central2 = models.CharField(max_length=3, null=True, blank=True)
-	line2 = models.CharField(max_length=4, null=True, blank=True)
+	home = models.CharField(max_length=10, null=True, blank=True)
+	mobile = models.CharField(max_length=10, null=True, blank=True)
+	work = models.CharField(max_length=10, null=True, blank=True)
 
 	email = models.EmailField(max_length=200, null=True, blank=True)
-	preference = models.CharField(max_length=5, choices=CONTACT_TYPE, default='call', null=True, blank=True)
+	preference = models.CharField(max_length=6, choices=CONTACT_TYPE, default='home', null=True, blank=True)
 
 	created = models.DateTimeField(auto_now_add=True)
 	id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
@@ -41,6 +41,6 @@ class Profile(models.Model):
 
 
 	def __str__(self):
-		return str(self.username)
+		return f'{self.fname} {self.lname} - {self.username}'
 
     

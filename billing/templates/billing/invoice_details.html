@@ -1,0 +1,25 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<div class="container">
+    <div class="container d-flex justify-content-around">
+
+        <a id="backbtn" class="button bg-green-300 text-green-900 ms-4 mt-2 shadow" href="{{ request.GET.next }}">Go Back</a>
+        <a class="button bg-green-300 text-green-900 ms-4 mt-2 shadow" href="{% url "print-invoice" bill.id %}?next={% url "invoice-details" bill.id %}">Print Friendly Invoice</a>
+        
+    </div>
+    <hr class="px-3">
+
+    {% include "billing/itemized_table.html" with id=bill.id %}
+
+    {% if request.user.is_staff %}
+    <div class="container d-flex justify-content-around">
+        <a class="btn bg-green-500 btn-lg" href="{% url "add-service-item" bill.id %}?next/={% url "invoice-details" bill.id %}">Add Service Item</a>
+        <a class="btn bg-green-500 btn-lg" href="{% url "update-invoice" bill.id %}?next/={% url "invoice-details" bill.id %}">Update Invoice</a>
+    </div>
+    {% endif %}
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% extends "main.html" %}
+
+
+{% block content %}
+
+<div class="container">
+
+{% if request.user.is_staff %}
+<form method="POST" action="">
+        
+    {% csrf_token %}
+    {{form.as_p}}
+
+    <input class="btn bg-green-400" type="submit" value="Update">
+
+</form>
+
+{% else %}
+<h1>Restricted Access</h1>
+{% endif %}
+
+</div>
+
+{% endblock content %}

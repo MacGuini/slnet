@@ -24,10 +24,23 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = str(os.environ.get('DJANGO_SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
+<<<<<<< HEAD
 DEBUG = False
 
 ALLOWED_HOSTS = ["127.0.0.1", "slnet.herokuapp.com", "sublimelandscaping.net", "sublimeimprovements.com", "web-production-ca8e.up.railway.app"]
+=======
+# NOTE environmental variable to control production and development environments
+if str(os.environ.get('DEBUG_VALUE')) == "True":
+    DEBUG = True
+else:
+    DEBUG = False
+     
+    # CSRF_TRUSTED_ORIGINS = ["https://www.sublimeimprovements.com", "https://sublimeimprovements.com", "https://web-production-ca8e.up.railway.app"]
 
+ALLOWED_HOSTS = ["127.0.0.1", "sublimelandscaping.net", "sublimeimprovements.com", "www.sublimeimprovements.com", "https://www.sublimeimprovements.com", "https://sublimeimprovements.com"]
+>>>>>>> origin/dev
+
+   
 
 # Application definition
 
@@ -42,6 +55,7 @@ INSTALLED_APPS = [
     'services.apps.ServicesConfig',
     'careers.apps.CareersConfig',
     'accounts.apps.AccountsConfig',
+    'billing.apps.BillingConfig',
     'captcha',
 
     'storages',
@@ -87,7 +101,10 @@ WSGI_APPLICATION = 'slnet.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/dev
 if DEBUG == True:
     DATABASES = {
         'default': {
@@ -95,6 +112,7 @@ if DEBUG == True:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+<<<<<<< HEAD
 
 else:
 
@@ -109,7 +127,21 @@ else:
         }
     }
 
+=======
+>>>>>>> origin/dev
 
+else:
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': str(os.getenv('PGDATABASE')),
+            'USER': os.getenv('PGUSER'),
+            'PASSWORD': os.getenv('PGPASSWORD'),
+            'HOST': os.getenv('PGHOST'),
+            'PORT': os.getenv('PGPORT'),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -142,11 +174,22 @@ USE_I18N = True
 USE_TZ = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+if DEBUG == True:
+
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = os.getenv('GMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.getenv('GMAIL_HOST_PASSWORD')
+else:
+    EMAIL_HOST = os.getenv('EMAIL_HOST')
+    EMAIL_PORT = os.getenv('EMAIL_PORT')
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

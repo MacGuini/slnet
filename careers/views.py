@@ -1,6 +1,4 @@
-import os
-
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Job, Application
 from django.template import context
 from .forms import ApplicationForm, ReviewAppForm, JobForm
@@ -30,7 +28,7 @@ def postJob(request):
 
 @login_required(login_url='login')
 def deleteJob(request, pk):
-    job = Job.objects.get(id=pk)
+    job = get_object_or_404(Job, id=pk)
     if request.method == 'POST':
         job.delete()
         return redirect('job-board')
@@ -39,7 +37,7 @@ def deleteJob(request, pk):
 
 @login_required(login_url='login')
 def updateJob(request, pk):
-    job = Job.objects.get(id=pk)
+    job = get_object_or_404(Job, id=pk)
     form = JobForm(instance=job)
 
     if request.method == "POST":
@@ -59,7 +57,7 @@ def jobAppList(request):
 
 @login_required(login_url='login')
 def viewJobApp(request, pk):
-    app = Application.objects.get(id=pk)
+    app = get_object_or_404(Application, id=pk)
     form = ReviewAppForm(instance = app)
     
     if request.method == 'POST':
@@ -77,13 +75,12 @@ def viewJobApp(request, pk):
 
 @login_required(login_url='login')
 def deleteJobApp(request, pk):
-    app = Application.objects.get(id=pk)
+    app = get_object_or_404(Application, id=pk)
 
     if request.method == 'POST':
 
         app.delete()
 
-        
         return redirect('job-app-list')
     context = {'object':app}
     return render (request, 'delete_template.html', context)
@@ -92,19 +89,22 @@ def deleteJobApp(request, pk):
 
 def applyJob(request, jobId):
     form = ApplicationForm()
-    job = Job.objects.get(id=jobId)
+    job = get_object_or_404(Job, id=jobId)
 
     if request.method == 'POST':
         form = ApplicationForm(request.POST, request.FILES)
         if form.is_valid():
             application = form.save(commit=False)
             application.job = job
+            email = str(application.email)
+
+            name = str(application.fname + ' ' + application.lname)
             
             send_mail(
-                "You're application has been submitted.",
-                "This message is to confirm your application for Sublime Improvements.",
+                "Hello " + name + "! You're application has been submitted.",
+                "This message is to confirm your application for Sublime Improvements for " + str(job.title),
                 "Don't reply <do_not_reply@sublimeimprovements.com>",
-                ['bhatz829@yahoo.com']
+                [email]
             )
             application.save()
 

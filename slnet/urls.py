@@ -27,10 +27,11 @@ urlpatterns = [
     path('', include('services.urls')),
     path('', include('careers.urls')),
     path('', include('accounts.urls')),
+    path('', include('billing.urls')),
 
     # Built in password reset views
 
-    # User submites email for reset
+    # User submits email for reset
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="reset_password.html"), name="reset_password"),
     # Email sent message
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="reset_password_sent.html"), name="password_reset_done"),

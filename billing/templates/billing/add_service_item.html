@@ -1,0 +1,37 @@
+{% extends "main.html" %}
+
+
+{% block content %}
+
+{% if request.user.is_staff %}
+<div class="container">
+    <br>
+    <h3 class="text-center">Add Service to Invoice</h3>
+    <form method="POST" action="{% url 'add-service-item' bill_id %}">
+        
+        {% csrf_token %}
+        {{form.as_p}}
+
+        <div class="d-flex justify-content-center">
+            <input class="btn bg-green-400 btn-lg" type="submit" value="Add to Invoice" name="save_and_add">
+        </div>
+
+    </form>
+
+</div>
+
+<hr>
+
+{% include "billing/itemized_table.html" with id=bill.id %}
+<div class="container text-center">
+    <a class="btn bg-green-500 btn-lg" href="{% url "invoice-details" bill_id %}">Finish invoice</a>
+</div>
+
+{% else %}
+
+<h1>Restricted Access</h1>
+
+{% endif %}
+
+
+{% endblock content %}

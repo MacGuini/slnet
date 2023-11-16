@@ -1,0 +1,25 @@
+{% block content %}
+<div class="container d-flex justify-content-around">
+
+    <a id="backbtn" class="button bg-green-300 text-green-900 ms-4 mt-2 shadow" href="{{ request.GET.next }}">Go Back</a>
+    <button id="printbtn" onclick="window.print()">Print Invoice</button>
+    
+</div>
+{% include "billing/itemized_table.html" with id=bill.id %}
+
+<style>
+    @media print {
+
+        #backbtn, #printbtn {
+            display: none !important;
+        }
+        tr {
+            page-break-inside: avoid;
+        }
+    }
+
+</style>
+
+
+
+{% endblock content %}

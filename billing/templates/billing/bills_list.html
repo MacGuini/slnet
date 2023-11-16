@@ -1,0 +1,48 @@
+{% extends "main.html" %}
+
+{% block content %}
+<style>
+    a{
+        color: black;
+    }
+</style>
+
+
+<div class="container">
+    <h3>Bill List</h3>
+
+    <div class="table-responsive">
+        <table class="table">
+            <th><a href="?order_by=user__lname&sort_type={{ sort_type }}">Name</a></th>
+            <th>Street</th>
+            <th><a href="?order_by=user__city&sort_type={{ sort_type }}">City</a></th>
+            <th><a href="?order_by=user__zipcode&sort_type={{ sort_type }}">Zipcode</a></th>
+            <th>Total</th>
+            <th><a href="?order_by=isPaid&sort_type={{ sort_type }}">Paid</a></th>
+            <th><a href="?order_by=created&sort_type={{ sort_type }}">Date</a></th>
+    
+            {% for bill in bills %}
+                <tr>
+                        
+                    <td><a href="{% url "invoice-details" bill.id %}?next={% url "bills-list" %}">{{bill.lname}}, {{bill.fname}}</a></td>
+                    <td>{{bill.street1}} {% if bill.street2 %}{{bill.street2}}{% endif %}</td>
+                    <td>{{bill.city}}</td>
+                    <td>${{bill.total_price}}</td>
+                    {% if bill.isPaid %}
+                        <td>Paid</td>
+                        {% else %}
+                        <td>Unpaid</td>
+                    {% endif %}
+                    <td>{{bill.created}}</td>
+                        
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</div>
+
+
+
+
+{% endblock content %}

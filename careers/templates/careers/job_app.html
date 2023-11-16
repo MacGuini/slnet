@@ -1,4 +1,5 @@
 {% extends 'main.html' %}
+{% load static %}
 
 {% block content %}
 
@@ -12,9 +13,8 @@
 
   </div>
   <!--Job App Container-->
-  <div class="container">
 
-  <div class="col-12">
+
     <form method="POST" action="{% url 'apply-job' job.id %}" enctype="multipart/form-data">
         {% csrf_token %}
 
@@ -170,7 +170,7 @@
           </div>
 
           <div class="col-sm-5" id="resume">
-            <label {% if form.resume.errors %}class="text-danger"{% endif %} for="resume">Upload Resume (2.5MB Limit) {{form.resume.errors.as_text}} </label>
+            <label {% if form.resume.errors %}class="text-danger"{% endif %} for="resume">Upload Resume (20MB Limit) {{form.resume.errors.as_text}} </label>
             {{form.resume}}
           </div>
 
@@ -222,13 +222,17 @@
             <p>By clicking "Submit Application" and passing the recapcha test, you agree that all of the above information is true to the best of your knowledge. False information may result in an applicant's denial or termination if employment is obtained under false pretenses.</p>
           </div>
           <hr>
-          <div class="col-md-3" id='captcha'>
-
-            <label {% if form.captcha.errors %}class="text-danger"{% endif %} for="captcha">Are you human?</label>
-            {{form.captcha}}
-            <br>
-            <input class="btn btn-success" type="submit" value="Submit Application">
+          <div class="d-flex justify-content-center text-center" id='captcha'>
+            <div class="form-group">
+                <p class="px-3" style="font-size: 1.3rem;" {% if form.captcha.errors %}class="text-danger"{% endif %}>Are you human?</p>
+                {{form.captcha}}
+            </div>
           </div>
+          <br>
+          <div class="d-flex justify-content-center">
+              <input class="btn btn-lg bg-green-400" type="submit" value="Submit Application">
+          </div>
+        
         
           
     </form>
