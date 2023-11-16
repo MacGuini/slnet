@@ -7,5 +7,3 @@ services/__pycache__/*
 *.pyc
 */__pycache__/*
 db.sqlite3
-
-*/__init__.py
