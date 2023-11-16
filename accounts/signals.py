@@ -20,6 +20,15 @@ def createProfile(sender, instance, created, **kwargs):
 			lname = user.last_name,
 		)
 		profile.save()
+
+		send_mail(
+			"An account has been created on Sublime Improvements",
+			"This message is to inform you that a new account has been created on Sublime Improvements.\n\nUsername: "+ user.username + "\n\nIf this user was not authorized please contact your administrator, Brian Lindsay."
+			'noreply@sublimeimprovements.com',
+			['bhatz829@gmail.com'],
+			fail_silently=False
+		)
+		
 		if profile.email:
 			send_mail(
 			"Hey " + profile.fname + " " + profile.lname + "! Your profile was created!", # Subject

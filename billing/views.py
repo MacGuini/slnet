@@ -4,6 +4,8 @@ from .models import Bill, ServiceItem, Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from . import mail_control
 
 # NOTE: Try to make signals out of the CRUD functions
 
@@ -32,6 +34,11 @@ def updateInvoice(request, bill_id):
         if form.is_valid():
 
             form.save()
+
+            bill_url = mail_control.createBillUrl(bill.id)
+            name = bill.fname + " " + bill.lname
+            mail_control.updateMail(name, bill.email, bill_url)
+
             return redirect('bills-list')
 
     return render(request, 'billing/update_invoice.html', {'bill':bill, 'services':services, 'form':form})
@@ -70,6 +77,10 @@ def addServiceItem(request, bill_id):
             bill.total_price += service_item.price
             bill.save()
 
+            bill_url = mail_control.createBillUrl(bill.id)
+            name = bill.fname + " " + bill.lname
+            mail_control.updateMail(name, bill.email, bill_url)
+
             if 'save_and_add' in request.POST:
                 return redirect('add-service-item', bill_id=bill.id)
                
@@ -94,6 +105,10 @@ def updateServiceItem(request, service_item_id):
             bill.total_price += service_item.price
             bill.save()
             service_item.save()
+
+            bill_url = mail_control.createBillUrl(bill.id)
+            name = bill.fname + " " + bill.lname
+            mail_control.updateMail(name, bill.email, bill_url)
 
             return redirect('update-invoice', bill_id=bill.id)
 

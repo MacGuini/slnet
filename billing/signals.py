@@ -1,5 +1,6 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.mail import send_mail
 
 from .models import Bill
 
@@ -22,4 +23,17 @@ def createBill(sender, instance, created, **kwargs):
         
         bill.save()
 
+        bill_url = "https://sublimeimprovements.com/billing/invoice-details/" + str(bill.id)
+
+        send_mail(
+            "Hey " + bill.fname + "! You're invoice has been processed!",
+            "Hello, " + bill.fname + "!\nWe have added a new bill to your account. You can view or print your invoice by visiting our site and logging into your account.\n\nIf the link below doesn't work, you can copy and paste this link into your browser to view your invoice.\n" ,
+            "noreply@sublimeimprovements.com",
+            [bill.email],
+            fail_silently=False,
+            html_message="You can view your invoice by clicking here <a href=" + bill_url + ">View invoice</a>\n\n<a href='https://sublimeimprovements.com/'>SublimeImprovements.com</a>"
+        )
+
         print("Created Bill")
+
+    
