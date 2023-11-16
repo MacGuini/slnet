@@ -29,7 +29,7 @@ if str(os.environ.get('DEBUG_VALUE')) == "True":
     DEBUG = True
 else:
     DEBUG = False
-     
+DEBUG = True
 CSRF_TRUSTED_ORIGINS = ["https://www.sublimeimprovements.com", "https://sublimeimprovements.com", "https://web-production-ca8e.up.railway.app"]
 
 ALLOWED_HOSTS = ["127.0.0.1", "sublimelandscaping.net", "sublimeimprovements.com", "www.sublimeimprovements.com", "https://www.sublimeimprovements.com", "https://sublimeimprovements.com"]
@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'slnet.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-if DEBUG == True:
+if DEBUG == False:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -148,7 +148,7 @@ USE_TZ = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-if DEBUG == True:
+if DEBUG == False:
 
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 587
