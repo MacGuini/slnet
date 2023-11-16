@@ -1,10 +1,5 @@
 /env/
 __pycache__/
 *.pyc
-slnet/settings.py
-accounts/__pycache__/admin.cpython-310.pyc
-accounts/__pycache__/models.cpython-310.pyc
-careers/__pycache__/views.cpython-310.pyc
-services/__pycache__/views.cpython-310.pyc
-slnet/__pycache__/settings.cpython-310.pyc
-slnet/__pycache__/urls.cpython-310.pyc
+*/__pycache__/*
+db.sqlite3
