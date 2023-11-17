@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-
+    {% if request.user.is_staff %}
     <div class="container text-center">
         <form method="POST" class="form mx-auto col-lg-4 col-md-6 col-sm-12">
             {% csrf_token %}
@@ -11,5 +11,8 @@
             </div>
         </form>
     </div>
+    
+    {% endif %}
+
 
 {% endblock content %}

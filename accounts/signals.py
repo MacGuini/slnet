@@ -6,37 +6,82 @@ from django.contrib.auth.models import User
 from .models import Profile
 from billing.models import Bill
 from django.core.mail import send_mail
+import string, secrets, random
 
+def generate_password(length):
+    alphabet = string.ascii_letters + string.digits + string.punctuation
+    password = ''.join(secrets.choice(alphabet) for i in range(length))
+    return password
 
-@receiver(post_save, sender=User)
-def createProfile(sender, instance, created, **kwargs):
+# Generate a 10-character random password
+password = generate_password(10)
+print("\n\nPASSWORD:" + password + "\n\n")
+
+@receiver(post_save, sender=Profile)
+def createClient(sender, instance, created, **kwargs):
 	if created:
-		user = instance
-		profile = Profile.objects.create(
-			user = user,
-			username = user.username,
-			email = user.email,
-			fname = user.first_name,
-			lname = user.last_name,
-		)
+		profile = instance 
+
+		fname = str(profile.fname)
+		lname = str(profile.lname)
+		username = str(profile.username)
+		email = str(profile.email)
+		password = generate_password(random.randint(15, 25))
+
+		user = User.objects.create_user(username, email, password)
+
+		user.first_name = fname
+		user.last_name = lname
+		user.save()
+
+		profile.user = user
 		profile.save()
 
 		send_mail(
+<<<<<<< HEAD
 			"An account has been created on Sublime Improvements",
 			"This message is to inform you that a new account has been created on Sublime Improvements.\n\nUsername: "+ user.username + "\n\nIf this user was not authorized please contact your administrator, Brian Lindsay."
 			"noreply@sublimeimprovements.com",
 			['bhatz829@gmail.com'],
+=======
+			"Successfully created a Sublime Improvements account for " + fname + " " + lname,
+			"This message is to inform you that a new account was successfully created on Sublime Improvements.\n\n\nUsername: "+ username + "\n\nName: " + fname + " " + lname,
+			'noreply@sublimeimprovements.com',
+			['bhatz829@gmail.com', email],
+>>>>>>> dev
 			fail_silently=False
-		)
+			)
+
+
+# @receiver(post_save, sender=User)
+# def createProfile(sender, instance, created, **kwargs):
+# 	if created:
+# 		user = instance
+# 		profile = Profile.objects.create(
+# 			user = user,
+# 			username = user.username,
+# 			email = user.email,
+# 			fname = user.first_name,
+# 			lname = user.last_name,
+# 		)
+# 		profile.save()
+
+# 		send_mail(
+# 			"An account has been created on Sublime Improvements",
+# 			"This message is to inform you that a new account has been created on Sublime Improvements.\n\nUsername: "+ user.username + "\n\nIf this user was not authorized please contact your administrator, Brian Lindsay."
+# 			'noreply@sublimeimprovements.com',
+# 			['bhatz829@gmail.com'],
+# 			fail_silently=False
+# 		)
 		
-		if profile.email:
-			send_mail(
-			"Hey " + profile.fname + " " + profile.lname + "! Your profile was created!", # Subject
-			"This message is being sent to you to let you know that your profile at sublimeimprovements.com has been successfully created.", # Message
-			"noreply@sublimeimprovements.com", # From
-			[profile.email], # To
-			fail_silently=False,
-		)
+# 		if profile.email:
+# 			send_mail(
+# 			"Hey " + profile.fname + " " + profile.lname + "! Your profile was created!", # Subject
+# 			"This message is being sent to you to let you know that your profile at sublimeimprovements.com has been successfully created.", # Message
+# 			"noreply@sublimeimprovements.com", # From
+# 			[profile.email], # To
+# 			fail_silently=False,
+# 		)
 
 		
 @receiver(post_save, sender=Profile)

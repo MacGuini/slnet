@@ -40,7 +40,6 @@ class ProfileForm(forms.ModelForm):
 		fields = '__all__'
 		exclude = [
 			'user',
-			'username'
 		]
 
 		labels = {
@@ -51,6 +50,7 @@ class ProfileForm(forms.ModelForm):
 			'street2':'Apt/Suite',
 		}
 		widgets = {
+			'username':forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Username"}),
 			'fname': forms.TextInput(attrs={ 'class': 'form-control', 'placeholder': "First Name"}),
 			'mname': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Middle Name"}),
 			'lname': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Last Name"}),
