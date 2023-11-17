@@ -15,7 +15,7 @@ def generate_password(length):
 
 # Generate a 10-character random password
 password = generate_password(10)
-print("\n\nPASSWORD:" + password + "\n\n")
+# print("\n\nPASSWORD:" + password + "\n\n")
 
 @receiver(post_save, sender=Profile)
 def createClient(sender, instance, created, **kwargs):
