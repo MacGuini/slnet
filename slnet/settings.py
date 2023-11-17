@@ -148,7 +148,7 @@ USE_TZ = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-if DEBUG == False:
+if DEBUG == True:
 
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 587

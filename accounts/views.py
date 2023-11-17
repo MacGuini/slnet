@@ -55,27 +55,41 @@ def logoutUser(request):
     logout(request)
     return redirect('index')
 
-def registerUser(request):
-    page = 'register'
-    form = CustomUserCreationForm()
+# This view is for new users to sign up
+# def registerUser(request):
+#     page = 'register'
+#     form = CustomUserCreationForm()
 
-    if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False) # Instead of committing data to database, it suspends it temporarily
-            user.username = user.username.lower() # Ensures all usernames are lower case to prevent duplicates with different cases.
-            user.save() # Finally saves
+#     if request.method == 'POST':
+#         form = CustomUserCreationForm(request.POST)
+#         if form.is_valid():
+#             user = form.save(commit=False) # Instead of committing data to database, it suspends it temporarily
+#             user.username = user.username.lower() # Ensures all usernames are lower case to prevent duplicates with different cases.
+#             user.save() # Finally saves
             
-            messages.success(request, 'User account was created')
+#             messages.success(request, 'User account was created')
 
-            login(request, user) # Logs user in
-            return redirect('edit-account')
-        else:
-            messages.success(request, "An error has occured during registration")
+#             login(request, user) # Logs user in
+#             return redirect('edit-account')
+#         else:
+#             messages.success(request, "An error has occured during registration")
 
     
-    context = {'page':page, 'form':form}
-    return render (request, 'accounts/create_account.html', context)
+#     context = {'page':page, 'form':form}
+#     return render (request, 'accounts/create_account.html', context)
+
+# Creates an account without logging in the user
+@login_required(login_url="login")
+def createAccount(request):
+    form = ProfileForm()
+
+    if request.method == "POST":
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('index')
+    return render(request, "accounts/create_account.html", {'form':form})
+
 
 @login_required(login_url="login")
 def editAccount(request):
