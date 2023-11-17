@@ -38,17 +38,10 @@ def createClient(sender, instance, created, **kwargs):
 		profile.save()
 
 		send_mail(
-<<<<<<< HEAD
-			"An account has been created on Sublime Improvements",
-			"This message is to inform you that a new account has been created on Sublime Improvements.\n\nUsername: "+ user.username + "\n\nIf this user was not authorized please contact your administrator, Brian Lindsay."
-			"noreply@sublimeimprovements.com",
-			['bhatz829@gmail.com'],
-=======
 			"Successfully created a Sublime Improvements account for " + fname + " " + lname,
 			"This message is to inform you that a new account was successfully created on Sublime Improvements.\n\n\nUsername: "+ username + "\n\nName: " + fname + " " + lname,
 			'noreply@sublimeimprovements.com',
 			['bhatz829@gmail.com', email],
->>>>>>> dev
 			fail_silently=False
 			)
 
