@@ -6,18 +6,38 @@
 {% if request.user.is_staff %}
 <div class="container">
     <br>
-    <h3 class="text-center">Add Service to Invoice</h3>
+    <h3>Add Service to Invoice</h3>
     <form method="POST" action="{% url 'add-service-item' bill_id %}">
         
         {% csrf_token %}
-        {{form.as_p}}
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-9" id="service">
+                    <label for="service">Service</label>
+                    {{form.service}}
+                </div>
+
+                <div class="col-md-3 mt-4">
+                    <a class="btn btn-success" href="{% url "create-service" %}?next={% url "add-service-item" bill.id %}"><i class="fa fa-plus"> </i> Add New Service</a>
+                </div>
+            </div>
+            <div id="description">
+                <label for="description">Description</label>
+                {{form.description}}
+            </div>
+            <div id="price">
+                <label for="price">Price</label>
+                {{form.price}}
+            </div>
+        </div>
+
+
 
         <div class="d-flex justify-content-center">
             <input class="btn bg-green-400 btn-lg" type="submit" value="Add to Invoice" name="save_and_add">
         </div>
 
     </form>
-
 </div>
 
 <hr>

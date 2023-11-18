@@ -3,10 +3,18 @@
 {% block content %}
 
 <div class="container">
+    {% if messages %}
+    <div class="text-center mx-auto" style="max-width: 460px;">
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }} bg-danger text-white my-4 p-3 rounded-3"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
     <div class="container d-flex justify-content-around">
-
-        <a id="backbtn" class="button bg-green-300 text-green-900 ms-4 mt-2 shadow" href="{{ request.GET.next }}">Go Back</a>
-        <a class="button bg-green-300 text-green-900 ms-4 mt-2 shadow" href="{% url "print-invoice" bill.id %}?next={% url "invoice-details" bill.id %}">Print Friendly Invoice</a>
+        <a class="button bg-green-300 text-green-900 ms-4 mt-2 shadow" href="{% url "send-invoice" bill.id %}?next={% url "invoice-details" bill.id %}">Email Invoice to {{bill.fname}} {{bill.lname}}</a>
+        <a class="button bg-green-300 text-green-900 ms-4 mt-2 shadow" href="{% url "print-invoice" bill.id %}?next={% url "invoice-details" bill.id %}">Printer Friendly Invoice</a>
         
     </div>
     <hr class="px-3">
@@ -14,8 +22,7 @@
     {% include "billing/itemized_table.html" with id=bill.id %}
 
     {% if request.user.is_staff %}
-    <div class="container d-flex justify-content-around">
-        <a class="btn bg-green-500 btn-lg" href="{% url "add-service-item" bill.id %}?next/={% url "invoice-details" bill.id %}">Add Service Item</a>
+    <div class="container d-flex justify-content-center">
         <a class="btn bg-green-500 btn-lg" href="{% url "update-invoice" bill.id %}?next/={% url "invoice-details" bill.id %}">Update Invoice</a>
     </div>
     {% endif %}

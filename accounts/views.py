@@ -3,7 +3,10 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .forms import CustomUserCreationForm, ProfileForm, LoginForm
+
+from accounts.models import Profile
+
+from .forms import ProfileForm, LoginForm
 
 # Create your views here.
 
@@ -87,6 +90,7 @@ def createAccount(request):
         form = ProfileForm(request.POST)
         if form.is_valid():
             form.save()
+
             return redirect('index')
     return render(request, "accounts/create_account.html", {'form':form})
 
@@ -101,9 +105,35 @@ def editAccount(request):
         if form.is_valid():
             form.save()
             return redirect('index')
-        else:
-            print(form.errors)
-
     
     context = {'form':form}
     return render(request, 'accounts/edit_account.html', context)
+
+@login_required(login_url="login")
+def adminEditAccount(request, pk):
+    account = get_object_or_404(Profile, id=pk)
+    form = ProfileForm(instance=account)
+
+    if request.method == "POST":
+        form = ProfileForm(request.POST, instance=account)
+        if form.is_valid():
+            form.save()
+            return redirect('list-accounts')
+        
+    return render(request, 'accounts/admin_edit_account.html', {'form':form, 'account':account})
+
+@login_required(login_url="login")
+def listAccounts(request):
+    users = Profile.objects.all()
+    return render (request, 'accounts/list_accounts.html', {'users':users})
+
+@login_required(login_url="login")
+def deleteAccount(request, pk):
+    account = get_object_or_404(Profile, id=pk)
+
+    if request.method == "POST":
+
+        account.delete()
+        return redirect('list-accounts')
+    return render(request, 'delete_template.html', {'object':account})
+

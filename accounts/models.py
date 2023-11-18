@@ -41,6 +41,6 @@ class Profile(models.Model):
 
 
 	def __str__(self):
-		return f'{self.fname} {self.lname} - {self.username}'
+		return f'Profile belonging to {self.fname} {self.lname} - {self.username}'
 
     

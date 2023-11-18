@@ -21,7 +21,7 @@ class Job(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
     def __str__(self):
-        return self.title
+        return f'Job title: {self.title}'
 
 
 class Application(models.Model):
@@ -72,7 +72,7 @@ class Application(models.Model):
 
 
     def __str__(self):
-        return self.lname + ", " + self.fname
+        return f'Application from {self.lname}, {self.fname}'
 
     class Meta:
         ordering = ["-created"]

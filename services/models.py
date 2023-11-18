@@ -13,7 +13,7 @@ class Category(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
     def __str__(self):
-        return self.name
+        return f'{self.name} category'
 
     class Meta:
         ordering = ['name']
@@ -47,7 +47,7 @@ class Service(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
 
     def __str__(self):
-        return self.name
+        return f'{self.name} service'
     
     def save(self, *args,**kwargs):
         if not self.slug:

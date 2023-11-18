@@ -1,8 +1,8 @@
 from django.core.mail import send_mail
-from .models import Bill
 
-def updateMail(name, email, bill_url):
-
+def updateMail(name, email, bill_id):
+    
+    bill_url = createBillUrl(bill_id)
     send_mail(
         "Hey " + name + "! You're invoice has been processed!",
         "Hello, " + name + "!\nWe have updated a bill on your account.\nYou can view or print your invoice by visiting our site and logging into your account.\n\nIf the link below doesn't work, you can copy and paste this link into your browser to view your invoice.\n" ,

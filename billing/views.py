@@ -1,11 +1,14 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from .forms import BillForm, ServiceItemForm
 from .models import Bill, ServiceItem, Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.core.mail import send_mail
-from . import mail_control
+from billing import mail_control
 
 # NOTE: Try to make signals out of the CRUD functions
 
@@ -34,10 +37,6 @@ def updateInvoice(request, bill_id):
         if form.is_valid():
 
             form.save()
-
-            bill_url = mail_control.createBillUrl(bill.id)
-            name = bill.fname + " " + bill.lname
-            mail_control.updateMail(name, bill.email, bill_url)
 
             return redirect('bills-list')
 
@@ -77,10 +76,6 @@ def addServiceItem(request, bill_id):
             bill.total_price += service_item.price
             bill.save()
 
-            bill_url = mail_control.createBillUrl(bill.id)
-            name = bill.fname + " " + bill.lname
-            mail_control.updateMail(name, bill.email, bill_url)
-
             if 'save_and_add' in request.POST:
                 return redirect('add-service-item', bill_id=bill.id)
                
@@ -105,10 +100,6 @@ def updateServiceItem(request, service_item_id):
             bill.total_price += service_item.price
             bill.save()
             service_item.save()
-
-            bill_url = mail_control.createBillUrl(bill.id)
-            name = bill.fname + " " + bill.lname
-            mail_control.updateMail(name, bill.email, bill_url)
 
             return redirect('update-invoice', bill_id=bill.id)
 
@@ -145,3 +136,27 @@ def billsList(request):
             bills = Bill.objects.filter(user=profile).order_by(order_by)
 
     return render(request, "billing/bills_list.html", {'bills':bills, 'sort_type':sort_type})
+
+@login_required(login_url='login')
+def deleteBill(request, bill_id):
+    bill = get_object_or_404(Bill, id=bill_id)
+
+    if request.method == "POST":
+        bill.delete()
+        return redirect ('bills-list')
+
+    return render(request, "delete_template.html", {'object':bill})
+
+@login_required(login_url="login")
+def sendInvoice(request, bill_id):
+    bill = get_object_or_404(Bill, id=bill_id)
+    name =  bill.fname + " " +  bill.lname
+
+    if  bill.email:
+        email =  bill.email
+        bill_id =  bill.id
+        mail_control.updateMail(name, email, bill_id)
+    else:
+        messages.error(request, name + " does not have an email with their account. Email was not sent.")
+    
+    return HttpResponseRedirect(reverse('invoice-details', args=[bill_id]))

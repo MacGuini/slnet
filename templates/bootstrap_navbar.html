@@ -22,12 +22,23 @@
 
         
         {% if request.user.is_staff %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'create-account' %}">Create Account</a>
-        </li>  
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'job-app-list' %}">View Applications</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin
+          </a>
+          <ul class="dropdown-menu bg-green-200" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="{% url "list-accounts" %}">Accounts List</a></li>
+            <li>
+              <a class="dropdown-item" href="{% url 'create-account' %}">Create Account</a>
+            </li> 
+            <li>
+              <a class="dropdown-item" href="{% url 'job-app-list' %}">View Applications</a>
+            </li>
+            {% comment %} <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li> {% endcomment %}
+          </ul>
         </li>
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Billing
