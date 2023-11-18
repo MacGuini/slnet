@@ -10,3 +10,4 @@ __pycache__/
 !**/migrations/
 !**/migrations/**/__pycache__/
 db.sqlite3
+

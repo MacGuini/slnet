@@ -11,4 +11,6 @@ urlpatterns = [
     path('billing/update-invoice/<uuid:bill_id>/', views.updateInvoice, name='update-invoice'),
     path('billing/itemized-table/<uuid:bill_id>/', views.itemizedTable, name='itemized-table'),
     path('billing/print_invoice/<uuid:bill_id>/', views.printInvoice, name='print-invoice'),
+    path('billing/send-invoice/<uuid:bill_id>/,', views.sendInvoice, name='send-invoice'),
+    path('billing/delete-bill/<uuid:bill_id>/', views.deleteBill, name='delete-bill'),
 ]

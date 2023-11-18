@@ -6,10 +6,10 @@
 <div class="container text-center ">
 	<div>
 		{% if messages %}
-		<div class="container p-1 shadow rounded bg-green-200 text-center error_box my-2">
+		<div class="container p-1 shadow rounded bg-danger text-center error_box my-2">
 			<ul>
 				{% for message in messages %}
-					<li {% if message.tags %} class="{{ message.tags }} text-danger font-weight-bold" {% endif %} >{{ message }}</li>
+					<li {% if message.tags %} class="{{ message.tags }} text-white font-weight-bold" {% endif %} >{{ message }}</li>
 				{% endfor %}
 			</ul>
 		</div>
@@ -17,7 +17,7 @@
 		
 	</div>
 
-	<div  class="container p-2 shadow rounded bg-green-300 login_container mt-3">
+	<div  class="container p-2 shadow rounded-3 bg-green-300 login_container mt-3">
 
 		<form method="POST" class='form mx-auto col-lg-4 col-md-6 col-sm-12'>
 			{% csrf_token %}

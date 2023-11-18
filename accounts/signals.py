@@ -1,21 +1,17 @@
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
-from django.core.mail import send_mail
 
 from django.contrib.auth.models import User
+
+from accounts import mail_control
 from .models import Profile
 from billing.models import Bill
-from django.core.mail import send_mail
 import string, secrets, random
 
 def generate_password(length):
-    alphabet = string.ascii_letters + string.digits + string.punctuation
+    alphabet = string.ascii_letters + string.digits
     password = ''.join(secrets.choice(alphabet) for i in range(length))
     return password
-
-# Generate a 10-character random password
-password = generate_password(10)
-# print("\n\nPASSWORD:" + password + "\n\n")
 
 @receiver(post_save, sender=Profile)
 def createClient(sender, instance, created, **kwargs):
@@ -25,25 +21,22 @@ def createClient(sender, instance, created, **kwargs):
 		fname = str(profile.fname)
 		lname = str(profile.lname)
 		username = str(profile.username)
-		email = str(profile.email)
+		
 		password = generate_password(random.randint(15, 25))
-
+		email = str(profile.email) if profile.email else ''
 		user = User.objects.create_user(username, email, password)
+
+		
 
 		user.first_name = fname
 		user.last_name = lname
 		user.save()
-
+		name = fname + " " + lname
 		profile.user = user
 		profile.save()
 
-		send_mail(
-			"Successfully created a Sublime Improvements account for " + fname + " " + lname,
-			"This message is to inform you that a new account was successfully created on Sublime Improvements.\n\n\nUsername: "+ username + "\n\nName: " + fname + " " + lname,
-			'noreply@sublimeimprovements.com',
-			['bhatz829@gmail.com', email],
-			fail_silently=False
-			)
+		if profile.email:
+			mail_control.newAccount(name, username, email, password)
 
 
 # @receiver(post_save, sender=User)
@@ -86,8 +79,12 @@ def updateProfile(sender, instance, created, **kwargs):
 	if created == False:
 		user.first_name = profile.fname 
 		user.last_name = profile.lname
-		user.email = profile.email
+		user.email = str(profile.email) if profile.email else ''
 		user.save()
+
+		if profile.email:
+			name = profile.fname + " " + profile.lname
+			mail_control.updateAccounts(name, profile.email)
 
 		if bills:
 			for bill in bills:
@@ -104,13 +101,7 @@ def updateProfile(sender, instance, created, **kwargs):
 				bill.email = profile.email
 				bill.save()
 
-		send_mail(
-			"Hey " + profile.fname + " " + profile.lname + "! Your profile was updated!", # Subject
-			"This message is being sent to you to let you know that your profile at sublimeimprovements.com has been successfully updated.", # Message
-			"noreply@sublimeimprovements.com", # From
-			[profile.email], # To
-			fail_silently=False,
-		)
+
 
 @receiver(post_delete, sender=Profile)
 def deleteUser(sender, instance, **kwargs):

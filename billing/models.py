@@ -34,7 +34,7 @@ class Bill(models.Model):
         if self.user is None:
             return f'User Removed - {self.total_price}'
         else:
-            return f'{self.fname} {self.lname} - {self.total_price}'
+            return f'Bill for {self.fname} {self.lname} - Total: {self.total_price}'
 
 
 
@@ -51,4 +51,4 @@ class ServiceItem(models.Model):
         if self.service is None:
             return 'Service Removed'
         else:
-            return f'{self.service.name}'
+            return f'Service Item: {self.service.name}'
