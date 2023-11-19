@@ -22,7 +22,7 @@ def createClient(sender, instance, created, **kwargs):
 		lname = str(profile.lname)
 		username = str(profile.username)
 		
-		password = generate_password(random.randint(15, 25))
+		password = generate_password(random.randint(25, 30))
 		email = str(profile.email) if profile.email else ''
 		user = User.objects.create_user(username, email, password)
 
