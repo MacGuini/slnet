@@ -25,7 +25,7 @@ SECRET_KEY = str(os.environ.get('DJANGO_SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # NOTE environmental variable to control production and development environments
-if str(os.environ.get('DEBUG_VALUE')) == "False":
+if str(os.environ.get('DEBUG_VALUE')) == "True":
     DEBUG = True
 else:
     DEBUG = False
@@ -148,7 +148,7 @@ USE_TZ = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-if DEBUG == False:
+if DEBUG == True:
 
     EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_PORT = 587
