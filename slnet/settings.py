@@ -151,8 +151,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 if DEBUG == True:
 
     EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-    EMAIL_HOST_USER = 'ffc95d8f0a8560'
-    EMAIL_HOST_PASSWORD = 'd417d8bdbf0359'
+    EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
     EMAIL_PORT = '2525'
 
     # EMAIL_HOST = 'smtp.gmail.com'
