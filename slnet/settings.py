@@ -161,6 +161,7 @@ if DEBUG == True:
     # EMAIL_HOST_USER = os.getenv('GMAIL_HOST_USER')
     # EMAIL_HOST_PASSWORD = os.getenv('GMAIL_HOST_PASSWORD')
 else:
+    DEFAULT_FROM_EMAIL = "noreply@sublimeimprovements.com"
     EMAIL_HOST = os.getenv('EMAIL_HOST')
     EMAIL_PORT = os.getenv('EMAIL_PORT')
     EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
