@@ -124,7 +124,7 @@ def adminEditAccount(request, pk):
 
 @login_required(login_url="login")
 def listAccounts(request):
-    users = Profile.objects.all()
+    users = Profile.objects.all().exclude(is_superuser=True)
     return render (request, 'accounts/list_accounts.html', {'users':users})
 
 @login_required(login_url="login")
