@@ -1,10 +1,6 @@
 /env/
 __pycache__/
-/accounts/__pycache__/*
-/billing/__pycache__/*
-/careers/__pycache__/*
-/services/__pycache__/*
-/slnet/__pycache__/*
+**/__init__.py
 *.pyc
 **/__pycache__/
 **/migrations/

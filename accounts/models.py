@@ -18,10 +18,10 @@ class Profile(models.Model):
     )
 	# NOTE: fname, lname, and email must be added in any form you create to add a new profile. Built in user model breaks otherwise. Try to figure out solution in signals.
 	user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-	username = models.CharField(max_length=100, null=False, blank=False, unique=True)
-	fname = models.CharField(max_length=100, null=False, blank=False)
+	username = models.CharField(max_length=100, null=True, blank=True)
+	fname = models.CharField(max_length=100, null=True, blank=True)
 	mname = models.CharField(max_length=100, null=True, blank=True)
-	lname = models.CharField(max_length=100, null=False, blank=False)
+	lname = models.CharField(max_length=100, null=True, blank=True)
 	street1 = models.CharField(max_length=200, null=True, blank=True)
 	street2 = models.CharField(max_length=200, null=True, blank=True)
 	city = models.CharField(max_length=100, null=True, blank=True)
