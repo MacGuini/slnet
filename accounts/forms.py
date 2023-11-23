@@ -40,6 +40,7 @@ class ProfileForm(forms.ModelForm):
 		fields = '__all__'
 		exclude = [
 			'user',
+			'is_superuser',
 		]
 
 		labels = {
@@ -64,6 +65,8 @@ class ProfileForm(forms.ModelForm):
 			'work': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "Work Phone"}),
 			'email': forms.TextInput(attrs={'class': 'form-control', 'placeholder': "E-Mail"}),
 			'preference': forms.RadioSelect(),
+			'is_staff': forms.CheckboxInput(attrs={'class': 'check-box-lg'}),
+			# 'is_superuser': forms.CheckboxInput(attrs={'class': 'check-box-lg'}),
 		}
 			
 		# NOTE: This doesn't work for some reason

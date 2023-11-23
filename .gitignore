@@ -6,8 +6,8 @@ __pycache__/
 /services/__pycache__/*
 /slnet/__pycache__/*
 *.pyc
-!**/__pycache__/
-!**/migrations/
-!**/migrations/**/__pycache__/
+**/__pycache__/
+**/migrations/
+**/migrations/**/
+**/migrations/**/__pycache__/
 db.sqlite3
-

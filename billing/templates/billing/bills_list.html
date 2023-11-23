@@ -19,7 +19,10 @@
             <th>Total</th>
             <th><a href="?order_by=isPaid&sort_type={{ sort_type }}">Paid</a></th>
             <th><a href="?order_by=created&sort_type={{ sort_type }}">Date</a></th>
-            <th>Delete</th>
+            {% if request.user.is_staff %}
+                <th>Delete</th>
+            {% endif %}
+            
     
             {% for bill in bills %}
                 <tr>
@@ -34,8 +37,10 @@
                         <td>Unpaid</td>
                     {% endif %}
                     <td>{{bill.created|date:"Y-d-m"}}</td>
-                    <td><a class="btn btn-danger" href="{% url "delete-bill" bill.id %}">-</a></td>
-                        
+                    {% if request.user.is_staff %}
+                        <td><a class="btn btn-danger" href="{% url "delete-bill" bill.id %}">-</a></td>
+                    {% endif %}
+                    
                 </tr>
             {% endfor %}
         </table>

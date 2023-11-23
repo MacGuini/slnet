@@ -87,6 +87,7 @@
             </div>
         </div>
         <hr>
+
         <div class="g-2 text-center">
             <p style="font-size:1.5rem;">Contact Preference</p>
             <div class="btn-group" data-toggle="buttons">
@@ -103,6 +104,14 @@
 
             </div>
         </div>
+        
+        {% if request.user.is_staff %}
+            <div>
+                <p>Staff</p>
+                {{form.is_staff}}
+
+            </div>
+        {% endif %}
 
 
 
