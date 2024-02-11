@@ -1,7 +1,7 @@
 from django.db import models
 from services.models import Service
 from accounts.models import Profile
-from django.db.models.deletion import CASCADE
+from django.db.models.deletion import CASCADE, SET_NULL
 import uuid
 
 class Bill(models.Model):

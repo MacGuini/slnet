@@ -14,7 +14,8 @@ db.sqlite3
 *.log
 *.pot
 __pycache__
-media
+migrations
+# media
 
 # Tailwind CSS #
 #################

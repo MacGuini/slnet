@@ -32,7 +32,7 @@ else:
 
 CSRF_TRUSTED_ORIGINS = ["https://www.sublimeimprovements.com", "https://sublimeimprovements.com", "https://web-production-ca8e.up.railway.app"]
 
-ALLOWED_HOSTS = ["127.0.0.1", "sublimelandscaping.net", "sublimeimprovements.com", "www.sublimeimprovements.com", "https://www.sublimeimprovements.com", "https://sublimeimprovements.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "sublimeimprovements.com", "www.sublimeimprovements.com", "https://www.sublimeimprovements.com", "https://sublimeimprovements.com"]
 
    
 
