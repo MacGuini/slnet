@@ -4,9 +4,6 @@ __pycache__/
 **/__init__.py
 *.pyc
 **/__pycache__/
-**/migrations/
-**/migrations/**/
-**/migrations/**/__pycache__/
 db.sqlite3
 
 # Django #
@@ -14,7 +11,6 @@ db.sqlite3
 *.log
 *.pot
 __pycache__
-migrations
 # media
 
 # Tailwind CSS #
