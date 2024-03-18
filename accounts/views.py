@@ -27,7 +27,7 @@ def loginUser(request):
                 user = User.objects.get(username=username)
             except User.DoesNotExist:
                 messages.error(request, 'User does not exist.')
-                return render(request, 'accounts/login.html', {'form':form})
+                return redirect('login')
 
             # Authenticate the user
             user = authenticate(request, username=username, password=password)

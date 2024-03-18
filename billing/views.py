@@ -1,3 +1,4 @@
+from decimal import Decimal
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -56,6 +57,7 @@ def printInvoice(request, bill_id):
 
 def itemizedTable(request, bill_id):
     bill = get_object_or_404(Bill, id=bill_id)
+
     services = bill.services.all()
 
     return render(request, 'billing/itemized_table.html', {'bill':bill, 'services':services})

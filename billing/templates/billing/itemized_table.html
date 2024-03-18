@@ -77,16 +77,16 @@
               <a href="mailto:sublimelandscapingllc20@gmail.com" class="text-black"><i class="fa fa-envelope fa-fw"></i>Email: sublimelandscapingllc20@gmail.com
               </a>
         </div>
-
-    </div>
-
-    {% if bill.notes %}
+        {% if bill.notes %}
         <hr>
         <label for="notes">Notes</label>
         <div class="container">
             <p id="notes">{{bill.notes}}</p>
         </div>
     {% endif %}
+    </div>
+
+
 
     <hr class="px-3">
     <div class="container-fluid">
@@ -105,9 +105,29 @@
                 </tr>
                 {% endfor %}
                 <tr>
-                    <td><b>Total:</b></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Total:</td>
                     <td> </td>
-                    <td><b>${{bill.total_price}}</b></td>
+                    <td>${{bill.total_price}}</td>
+                </tr>
+                <tr>
+                    <td>Tax (7 percent): </td>
+                    <td> </td>
+                    <td>${{bill.taxed}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><b>Final Total Billed:</b></td>
+                    <td> </td>
+                    <td><strong>${{bill.final_total}}</strong></td>
                 </tr>
             </table>
         </div>
