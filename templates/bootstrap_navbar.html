@@ -27,12 +27,12 @@
             Admin
           </a>
           <ul class="dropdown-menu bg-green-200" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{% url "list-accounts" %}">Accounts List</a></li>
+            <li><a class="dropdown-item text-center" href="{% url "list-accounts" %}">Accounts List</a></li>
             <li>
-              <a class="dropdown-item" href="{% url 'create-account' %}">Create Account</a>
+              <a class="dropdown-item text-center" href="{% url 'create-account' %}">Create Account</a>
             </li> 
             <li>
-              <a class="dropdown-item" href="{% url 'job-app-list' %}">View Applications</a>
+              <a class="dropdown-item text-center" href="{% url 'job-app-list' %}">View Applications</a>
             </li>
             {% comment %} <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li> {% endcomment %}
@@ -44,8 +44,8 @@
             Billing
           </a>
           <ul class="dropdown-menu bg-green-200" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{% url "create-invoice" %}">Create Invoice</a></li>
-            <li><a class="dropdown-item" href="{% url "bills-list" %}">Bills List</a></li>
+            <li><a class="dropdown-item text-center" href="{% url "create-invoice" %}">Create Invoice</a></li>
+            <li><a class="dropdown-item text-center" href="{% url "bills-list" %}">Bills List</a></li>
             {% comment %} <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li> {% endcomment %}
           </ul>
