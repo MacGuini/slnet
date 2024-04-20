@@ -21,7 +21,7 @@
 
     <!-- Creates category buttons based on how many are in the database-->
     {% for category in categories.all %}
-    <button class="btn bg-green-400" onclick="filterSelection('{{ category }}')"> {{ category }}</button>
+    <button class="btn bg-green-400" onclick="filterSelection('{{ category }}')"> {{ category.name }}</button>
     {% empty %}
     <p>No Categories Found</p>
     {% endfor %}
@@ -29,9 +29,6 @@
     {% if request.user.is_staff %}
         <a class="button bg-green-300 text-green-900" href="{% url 'category-list' %}?next=/services">Edit Categories</a>
     {% endif %}
-    
-    
-    
 
   </div>
 
